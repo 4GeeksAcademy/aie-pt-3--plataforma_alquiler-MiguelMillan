@@ -1,0 +1,506 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AgentHub Admin Panel</title>
+    <meta
+      name="description"
+      content="Panel de administracion interno de AgentHub para gestionar usuarios, agentes, skills, contrataciones y errores operativos."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <script>
+      tailwind = {
+        config: {
+          darkMode: "class"
+        }
+      };
+    </script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body class="antialiased">
+    <div class="panel-bg fixed inset-0 -z-10"></div>
+
+    <aside
+      class="fixed inset-y-0 left-0 z-40 w-72 border-r border-slate-200/60 bg-white/90 p-6 backdrop-blur-sm dark:border-slate-800 dark:bg-slate-950/85"
+      aria-label="Navegacion principal"
+    >
+      <div class="mb-8 flex items-center gap-3">
+        <div class="h-10 w-10 rounded-xl bg-cyan-500/15 p-2 text-cyan-700 dark:text-cyan-300">
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true" class="h-full w-full">
+            <path
+              d="M12 3L4 8v8l8 5 8-5V8l-8-5zm0 2.4L17.6 9 12 12.6 6.4 9 12 5.4zm-6 5.2l5 3.2v6.1l-5-3.1v-6.2zm7 9.3v-6.1l5-3.2v6.2l-5 3.1z"
+              fill="currentColor"
+            />
+          </svg>
+        </div>
+        <div>
+          <p class="font-display text-xl font-bold tracking-tight text-slate-900 dark:text-white">AgentHub</p>
+          <p class="text-xs font-medium uppercase tracking-wide text-slate-500 dark:text-slate-400">Admin Console</p>
+        </div>
+      </div>
+
+      <nav class="space-y-2" aria-label="Secciones del panel">
+        <button class="nav-item is-active" data-section="dashboard">Dashboard</button>
+        <button class="nav-item" data-section="users">Gestion de usuarios</button>
+        <button class="nav-item" data-section="agents">Gestion de agentes</button>
+        <button class="nav-item" data-section="skills">Skills</button>
+        <button class="nav-item" data-section="contracts">Contrataciones</button>
+        <button class="nav-item" data-section="errors">Log de errores</button>
+      </nav>
+    </aside>
+
+    <div class="ml-0 min-h-screen md:ml-72">
+      <header
+        class="sticky top-0 z-30 border-b border-slate-200/70 bg-white/90 px-5 py-4 backdrop-blur-sm dark:border-slate-800 dark:bg-slate-950/85 md:px-8"
+      >
+        <div class="flex items-center justify-between gap-3">
+          <div>
+            <h1 id="page-title" class="font-display text-2xl font-bold text-slate-900 dark:text-white">Dashboard</h1>
+            <p class="text-sm text-slate-600 dark:text-slate-300">Supervisa y controla la operacion de AgentHub.</p>
+          </div>
+          <button
+            id="themeToggle"
+            class="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white px-4 py-2 text-sm font-semibold text-slate-700 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-500 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100"
+            aria-label="Alternar modo claro y oscuro"
+            type="button"
+          >
+            <span id="themeToggleIcon" aria-hidden="true">🌞</span>
+            <span id="themeToggleText">Modo oscuro</span>
+          </button>
+        </div>
+      </header>
+
+      <main class="px-5 py-6 md:px-8" aria-live="polite">
+        <section id="dashboard" class="panel-section space-y-6" data-title="Dashboard">
+          <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
+            <article class="metric-card">
+              <div class="metric-icon bg-emerald-500/15 text-emerald-700 dark:text-emerald-300">$</div>
+              <p class="metric-label">Ingresos de este mes</p>
+              <p class="metric-value">$184,920</p>
+            </article>
+            <article class="metric-card">
+              <div class="metric-icon bg-amber-500/15 text-amber-700 dark:text-amber-300">%</div>
+              <p class="metric-label">Perdida por cupones</p>
+              <p class="metric-value">$12,430</p>
+            </article>
+            <article class="metric-card">
+              <div class="metric-icon bg-cyan-500/15 text-cyan-700 dark:text-cyan-300">AI</div>
+              <p class="metric-label">Agentes activos</p>
+              <p class="metric-value">398</p>
+            </article>
+            <article class="metric-card">
+              <div class="metric-icon bg-rose-500/15 text-rose-700 dark:text-rose-300">!</div>
+              <p class="metric-label">Agentes fallando</p>
+              <p class="metric-value text-rose-600 dark:text-rose-300">11</p>
+            </article>
+          </div>
+
+          <div
+            class="flex h-72 items-center justify-center rounded-2xl border-2 border-dashed border-slate-300 bg-white/80 text-center text-slate-500 dark:border-slate-700 dark:bg-slate-900/70 dark:text-slate-300"
+            role="img"
+            aria-label="Marcador de posicion para grafico de actividad semanal"
+          >
+            Marcador de posicion: Grafico de Actividad Semanal
+          </div>
+        </section>
+
+        <section id="users" class="panel-section hidden space-y-6" data-title="Gestion de usuarios">
+          <article class="panel-card">
+            <div class="mb-4 flex items-center justify-between gap-3">
+              <h2 class="panel-title">Usuarios registrados</h2>
+              <span class="panel-kicker">Total: 6</span>
+            </div>
+            <div class="overflow-x-auto">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Plan</th>
+                    <th scope="col">Estado</th>
+                    <th scope="col" class="text-right">Acciones</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Laura Naranjo</td>
+                    <td>laura.naranjo@innotech.ai</td>
+                    <td>Enterprise</td>
+                    <td><span class="badge badge-ok">Activo</span></td>
+                    <td class="text-right"> 
+                      <div class="dropdown-wrap">
+                        <button class="action-btn" aria-label="Abrir acciones de usuario Laura Naranjo" aria-expanded="false" aria-controls="menu-user-1">⋮</button>
+                        <div id="menu-user-1" class="action-menu hidden" role="menu">
+                          <button data-action="view-user" data-id="u1">Ver detalle</button>
+                          <button data-action="delete" data-id="u1">Eliminar</button>
+                        </div>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Ruben Castro</td>
+                    <td>ruben.castro@fluxpayments.com</td>
+                    <td>Profesional</td>
+                    <td><span class="badge badge-ok">Activo</span></td>
+                    <td class="text-right">
+                      <div class="dropdown-wrap">
+                        <button class="action-btn" aria-label="Abrir acciones de usuario Ruben Castro" aria-expanded="false" aria-controls="menu-user-2">⋮</button>
+                        <div id="menu-user-2" class="action-menu hidden" role="menu">
+                          <button data-action="view-user" data-id="u2">Ver detalle</button>
+                          <button data-action="delete" data-id="u2">Eliminar</button>
+                        </div>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Ana Silva</td>
+                    <td>ana.silva@novatech.io</td>
+                    <td>Basico</td>
+                    <td><span class="badge badge-muted">Suspendido</span></td>
+                    <td class="text-right">
+                      <div class="dropdown-wrap">
+                        <button class="action-btn" aria-label="Abrir acciones de usuario Ana Silva" aria-expanded="false" aria-controls="menu-user-3">⋮</button>
+                        <div id="menu-user-3" class="action-menu hidden" role="menu">
+                          <button data-action="view-user" data-id="u3">Ver detalle</button>
+                          <button data-action="delete" data-id="u3">Eliminar</button>
+                        </div>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </article>
+        </section>
+
+        <section id="agents" class="panel-section hidden space-y-6" data-title="Gestion de agentes">
+          <article class="panel-card">
+            <div class="mb-4 flex items-center justify-between gap-3">
+              <h2 class="panel-title">Agentes registrados</h2>
+              <span class="panel-kicker">Estado en tiempo real</span>
+            </div>
+
+            <div class="space-y-3">
+              <article class="agent-row">
+                <div class="agent-main">
+                  <div>
+                    <p class="font-semibold text-slate-900 dark:text-white">SaaS Billing Copilot</p>
+                    <p class="text-sm text-slate-500 dark:text-slate-400">Propietario: Innotech</p>
+                  </div>
+                  <div class="flex items-center gap-2">
+                    <span class="badge badge-ok">Activo</span>
+                    <button class="expand-btn" data-collapse-target="agent-s1" aria-expanded="false">Ver skills</button>
+                    <div class="dropdown-wrap">
+                      <button class="action-btn" aria-label="Acciones de SaaS Billing Copilot" aria-expanded="false" aria-controls="menu-agent-1">⋮</button>
+                      <div id="menu-agent-1" class="action-menu hidden" role="menu">
+                        <button data-action="config-agent" data-id="a1">Configurar</button>
+                        <button data-action="delete" data-id="a1">Eliminar</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div id="agent-s1" class="collapse-box" aria-hidden="true">
+                  <div class="collapse-inner">
+                    <span class="skill-tag">Facturacion API</span>
+                    <span class="skill-tag">Conciliacion CSV</span>
+                    <span class="skill-tag">Alertas Email</span>
+                  </div>
+                </div>
+              </article>
+
+              <article class="agent-row">
+                <div class="agent-main">
+                  <div>
+                    <p class="font-semibold text-slate-900 dark:text-white">Legal Intake Navigator</p>
+                    <p class="text-sm text-slate-500 dark:text-slate-400">Propietario: Atlas Legal</p>
+                  </div>
+                  <div class="flex items-center gap-2">
+                    <span class="badge badge-muted">Inactivo</span>
+                    <button class="expand-btn" data-collapse-target="agent-s2" aria-expanded="false">Ver skills</button>
+                    <div class="dropdown-wrap">
+                      <button class="action-btn" aria-label="Acciones de Legal Intake Navigator" aria-expanded="false" aria-controls="menu-agent-2">⋮</button>
+                      <div id="menu-agent-2" class="action-menu hidden" role="menu">
+                        <button data-action="config-agent" data-id="a2">Configurar</button>
+                        <button data-action="delete" data-id="a2">Eliminar</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div id="agent-s2" class="collapse-box" aria-hidden="true">
+                  <div class="collapse-inner">
+                    <span class="skill-tag">OCR documentos</span>
+                    <span class="skill-tag">Clasificacion legal</span>
+                  </div>
+                </div>
+              </article>
+
+              <article class="agent-row">
+                <div class="agent-main">
+                  <div>
+                    <p class="font-semibold text-slate-900 dark:text-white">Ops Sentinel</p>
+                    <p class="text-sm text-slate-500 dark:text-slate-400">Propietario: FluxPayments</p>
+                  </div>
+                  <div class="flex items-center gap-2">
+                    <span class="badge badge-danger">Fallando</span>
+                    <button class="expand-btn" data-collapse-target="agent-s3" aria-expanded="false">Ver skills</button>
+                    <div class="dropdown-wrap">
+                      <button class="action-btn" aria-label="Acciones de Ops Sentinel" aria-expanded="false" aria-controls="menu-agent-3">⋮</button>
+                      <div id="menu-agent-3" class="action-menu hidden" role="menu">
+                        <button data-action="config-agent" data-id="a3">Configurar</button>
+                        <button data-action="delete" data-id="a3">Eliminar</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div id="agent-s3" class="collapse-box" aria-hidden="true">
+                  <div class="collapse-inner">
+                    <span class="skill-tag">Monitoreo API</span>
+                    <span class="skill-tag">Pager escalation</span>
+                    <span class="skill-tag">SLA scoring</span>
+                  </div>
+                </div>
+              </article>
+            </div>
+          </article>
+        </section>
+
+        <section id="skills" class="panel-section hidden space-y-6" data-title="Skills">
+          <article class="rounded-2xl border border-cyan-200 bg-cyan-50/80 p-5 text-cyan-900 dark:border-cyan-900/60 dark:bg-cyan-950/40 dark:text-cyan-200">
+            <h2 class="font-display text-lg font-bold">Que es una skill en AgentHub</h2>
+            <p class="mt-2 text-sm leading-relaxed">
+              Una skill es un modulo operativo que extiende las capacidades de un agente. Permite conectar fuentes,
+              ejecutar acciones especializadas y adaptar comportamiento segun el caso de negocio.
+            </p>
+          </article>
+
+          <article class="panel-card">
+            <div class="overflow-x-auto">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th scope="col">Skill</th>
+                    <th scope="col">Descripcion</th>
+                    <th scope="col">Adopcion</th>
+                    <th scope="col" class="text-right">Acciones</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Web Navigator</td>
+                    <td>Navega y extrae datos de sitios autorizados.</td>
+                    <td><span class="badge badge-info">24 agentes</span></td>
+                    <td class="text-right">
+                      <div class="dropdown-wrap">
+                        <button class="action-btn" aria-label="Acciones de skill Web Navigator" aria-expanded="false" aria-controls="menu-skill-1">⋮</button>
+                        <div id="menu-skill-1" class="action-menu hidden" role="menu">
+                          <button data-action="view-skill" data-id="s1">Ver detalle</button>
+                          <button data-action="delete" data-id="s1">Eliminar</button>
+                        </div>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Doc Reader</td>
+                    <td>Lee PDF, DOCX y hojas de calculo con OCR ligero.</td>
+                    <td><span class="badge badge-info">19 agentes</span></td>
+                    <td class="text-right">
+                      <div class="dropdown-wrap">
+                        <button class="action-btn" aria-label="Acciones de skill Doc Reader" aria-expanded="false" aria-controls="menu-skill-2">⋮</button>
+                        <div id="menu-skill-2" class="action-menu hidden" role="menu">
+                          <button data-action="view-skill" data-id="s2">Ver detalle</button>
+                          <button data-action="delete" data-id="s2">Eliminar</button>
+                        </div>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Calendar Orchestrator</td>
+                    <td>Sincroniza calendarios y agenda tareas recurrentes.</td>
+                    <td><span class="badge badge-info">31 agentes</span></td>
+                    <td class="text-right">
+                      <div class="dropdown-wrap">
+                        <button class="action-btn" aria-label="Acciones de skill Calendar Orchestrator" aria-expanded="false" aria-controls="menu-skill-3">⋮</button>
+                        <div id="menu-skill-3" class="action-menu hidden" role="menu">
+                          <button data-action="view-skill" data-id="s3">Ver detalle</button>
+                          <button data-action="delete" data-id="s3">Eliminar</button>
+                        </div>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </article>
+        </section>
+
+        <section id="contracts" class="panel-section hidden space-y-6" data-title="Contrataciones de agentes">
+          <article class="panel-card">
+            <div class="overflow-x-auto">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th scope="col">Cliente</th>
+                    <th scope="col">Agente</th>
+                    <th scope="col">Skills</th>
+                    <th scope="col">Fechas</th>
+                    <th scope="col">Importe</th>
+                    <th scope="col" class="text-right">Acciones</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Innotech</td>
+                    <td>SaaS Billing Copilot</td>
+                    <td>Facturacion API, Alertas Email</td>
+                    <td>01/05/2026 - 01/08/2026</td>
+                    <td>$4,200</td>
+                    <td class="text-right">
+                      <div class="dropdown-wrap">
+                        <button class="action-btn" aria-label="Acciones de contrato de Innotech" aria-expanded="false" aria-controls="menu-contract-1">⋮</button>
+                        <div id="menu-contract-1" class="action-menu hidden" role="menu">
+                          <button data-action="view-contract" data-id="c1">Ver detalle</button>
+                        </div>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Atlas Legal</td>
+                    <td>Legal Intake Navigator</td>
+                    <td>OCR documentos, Clasificacion legal</td>
+                    <td>14/03/2026 - 14/06/2026</td>
+                    <td>$2,860</td>
+                    <td class="text-right">
+                      <div class="dropdown-wrap">
+                        <button class="action-btn" aria-label="Acciones de contrato de Atlas Legal" aria-expanded="false" aria-controls="menu-contract-2">⋮</button>
+                        <div id="menu-contract-2" class="action-menu hidden" role="menu">
+                          <button data-action="view-contract" data-id="c2">Ver detalle</button>
+                        </div>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>FluxPayments</td>
+                    <td>Ops Sentinel</td>
+                    <td>Monitoreo API, SLA scoring</td>
+                    <td>01/01/2026 - 01/01/2027</td>
+                    <td>$8,910</td>
+                    <td class="text-right">
+                      <div class="dropdown-wrap">
+                        <button class="action-btn" aria-label="Acciones de contrato de FluxPayments" aria-expanded="false" aria-controls="menu-contract-3">⋮</button>
+                        <div id="menu-contract-3" class="action-menu hidden" role="menu">
+                          <button data-action="view-contract" data-id="c3">Ver detalle</button>
+                        </div>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </article>
+        </section>
+
+        <section id="errors" class="panel-section hidden space-y-6" data-title="Log de errores">
+          <article class="panel-card">
+            <div class="overflow-x-auto">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th scope="col">Timestamp</th>
+                    <th scope="col">Agente</th>
+                    <th scope="col">Tipo</th>
+                    <th scope="col">Descripcion</th>
+                    <th scope="col" class="text-right">Acciones</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr data-error-row="e1">
+                    <td>2026-07-12 09:10:33</td>
+                    <td>Ops Sentinel</td>
+                    <td><span class="badge badge-danger">API_TIMEOUT</span></td>
+                    <td>Timeout al consultar status endpoint /v2/health.</td>
+                    <td class="text-right">
+                      <div class="dropdown-wrap">
+                        <button class="action-btn" aria-label="Acciones de error e1" aria-expanded="false" aria-controls="menu-error-1">⋮</button>
+                        <div id="menu-error-1" class="action-menu hidden" role="menu">
+                          <button data-action="view-error" data-id="e1">Ver detalle</button>
+                          <button data-action="resolve-error" data-id="e1">Marcar como resuelto</button>
+                        </div>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr data-error-row="e2">
+                    <td>2026-07-12 08:52:20</td>
+                    <td>SaaS Billing Copilot</td>
+                    <td><span class="badge badge-warn">RATE_LIMIT</span></td>
+                    <td>Limite de peticiones alcanzado en proveedor de pagos.</td>
+                    <td class="text-right">
+                      <div class="dropdown-wrap">
+                        <button class="action-btn" aria-label="Acciones de error e2" aria-expanded="false" aria-controls="menu-error-2">⋮</button>
+                        <div id="menu-error-2" class="action-menu hidden" role="menu">
+                          <button data-action="view-error" data-id="e2">Ver detalle</button>
+                          <button data-action="resolve-error" data-id="e2">Marcar como resuelto</button>
+                        </div>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr data-error-row="e3">
+                    <td>2026-07-12 07:41:11</td>
+                    <td>Legal Intake Navigator</td>
+                    <td><span class="badge badge-info">AUTH_FAILURE</span></td>
+                    <td>Token de acceso expirado para repositorio documental.</td>
+                    <td class="text-right">
+                      <div class="dropdown-wrap">
+                        <button class="action-btn" aria-label="Acciones de error e3" aria-expanded="false" aria-controls="menu-error-3">⋮</button>
+                        <div id="menu-error-3" class="action-menu hidden" role="menu">
+                          <button data-action="view-error" data-id="e3">Ver detalle</button>
+                          <button data-action="resolve-error" data-id="e3">Marcar como resuelto</button>
+                        </div>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </article>
+        </section>
+      </main>
+    </div>
+
+    <div id="modalRoot" class="fixed inset-0 z-50 hidden" aria-hidden="true">
+      <div id="modalBackdrop" class="absolute inset-0 bg-slate-950/70 backdrop-blur-sm"></div>
+      <div class="relative flex min-h-full items-center justify-center p-4">
+        <article
+          id="modalPanel"
+          class="w-full max-w-2xl rounded-2xl border border-slate-200 bg-white p-5 shadow-2xl dark:border-slate-700 dark:bg-slate-900"
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="modalTitle"
+        >
+          <header class="mb-4 flex items-start justify-between gap-3">
+            <h2 id="modalTitle" class="font-display text-xl font-bold text-slate-900 dark:text-white"></h2>
+            <button id="modalCloseTop" class="action-btn" type="button" aria-label="Cerrar modal">✕</button>
+          </header>
+          <div id="modalBody" class="space-y-3 text-sm text-slate-700 dark:text-slate-200"></div>
+          <footer class="mt-5 flex justify-end">
+            <button
+              id="modalCloseBottom"
+              class="rounded-lg border border-slate-300 px-4 py-2 text-sm font-semibold text-slate-700 transition hover:bg-slate-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-500 dark:border-slate-700 dark:text-slate-200 dark:hover:bg-slate-800"
+              type="button"
+            >
+              Cerrar
+            </button>
+          </footer>
+        </article>
+      </div>
+    </div>
+
+    <script src="app.js"></script>
+  </body>
+</html>
