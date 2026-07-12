@@ -1,6 +1,9 @@
 # Especificacion de Producto
 ## AgentHub Admin Panel (prototipo frontend)
 
+Version: 1.0
+Fecha: 2026-07-12
+
 ## 1. Vision de producto
 AgentHub es una plataforma SaaS donde empresas alquilan agentes de IA preconfigurados y les agregan skills para tareas de negocio especificas.
 
