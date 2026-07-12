@@ -3,228 +3,95 @@ const titleBySection = {
   users: "Gestion de usuarios",
   agents: "Gestion de agentes",
   skills: "Skills",
-  contracts: "Contrataciones de agentes",
+  contracts: "Contrataciones",
   errors: "Log de errores"
 };
 
 const modalData = {
   users: {
-    u1: {
-      title: "Detalle de usuario: Laura Naranjo",
-      body: `
-        <p><strong>ID cliente:</strong> CL-00192</p>
-        <p><strong>Email:</strong> laura.naranjo@innotech.ai</p>
-        <p><strong>Plan:</strong> Enterprise</p>
-        <p><strong>Fecha de registro:</strong> 2025-11-14</p>
-        <p><strong>Pasarela de pago:</strong> Stripe Corporate</p>
-      `
-    },
-    u2: {
-      title: "Detalle de usuario: Ruben Castro",
-      body: `
-        <p><strong>ID cliente:</strong> CL-00403</p>
-        <p><strong>Email:</strong> ruben.castro@fluxpayments.com</p>
-        <p><strong>Plan:</strong> Profesional</p>
-        <p><strong>Fecha de registro:</strong> 2026-01-27</p>
-        <p><strong>Pasarela de pago:</strong> Adyen</p>
-      `
-    },
-    u3: {
-      title: "Detalle de usuario: Ana Silva",
-      body: `
-        <p><strong>ID cliente:</strong> CL-00874</p>
-        <p><strong>Email:</strong> ana.silva@novatech.io</p>
-        <p><strong>Plan:</strong> Basico</p>
-        <p><strong>Fecha de registro:</strong> 2026-03-03</p>
-        <p><strong>Pasarela de pago:</strong> Paypal Business</p>
-      `
-    }
+    u1: { title: "Detalle de Laura Naranjo", body: "<p><strong>ID:</strong> CL-00192</p><p><strong>Email:</strong> laura.naranjo@innotech.ai</p><p><strong>Plan:</strong> Enterprise</p><p><strong>Registro:</strong> 2025-11-14</p><p><strong>Pasarela:</strong> Stripe Corporate</p>" },
+    u2: { title: "Detalle de Ruben Castro", body: "<p><strong>ID:</strong> CL-00403</p><p><strong>Email:</strong> ruben.castro@fluxpayments.com</p><p><strong>Plan:</strong> Profesional</p><p><strong>Registro:</strong> 2026-01-27</p><p><strong>Pasarela:</strong> Adyen</p>" },
+    u3: { title: "Detalle de Ana Silva", body: "<p><strong>ID:</strong> CL-00874</p><p><strong>Email:</strong> ana.silva@novatech.io</p><p><strong>Plan:</strong> Basico</p><p><strong>Registro:</strong> 2026-03-03</p><p><strong>Pasarela:</strong> Paypal Business</p>" },
+    u4: { title: "Detalle de Lucia Marquez", body: "<p><strong>ID:</strong> CL-01411</p><p><strong>Email:</strong> lucia.marquez@atlaslegal.com</p><p><strong>Plan:</strong> Enterprise</p><p><strong>Registro:</strong> 2025-12-06</p><p><strong>Pasarela:</strong> Stripe Enterprise</p>" },
+    u5: { title: "Detalle de Mateo Rivas", body: "<p><strong>ID:</strong> CL-01920</p><p><strong>Email:</strong> mateo.rivas@cloudkinetics.net</p><p><strong>Plan:</strong> Profesional</p><p><strong>Registro:</strong> 2026-05-19</p><p><strong>Pasarela:</strong> Mercado Pago Business</p>" }
   },
   agents: {
-    a1: {
-      title: "Configurar agente: SaaS Billing Copilot",
-      body: `
-        <p class="mb-2">System prompt activo:</p>
-        <textarea readonly class="w-full min-h-40 rounded-lg border border-slate-300 bg-slate-50 p-3 text-xs text-slate-800 dark:border-slate-700 dark:bg-slate-950 dark:text-slate-100">Actuas como un analista de facturacion SaaS. Detecta discrepancias en cobros, valida reglas de cupones y reporta incidentes con prioridad y resumen ejecutivo.</textarea>
-      `
-    },
-    a2: {
-      title: "Configurar agente: Legal Intake Navigator",
-      body: `
-        <p class="mb-2">System prompt activo:</p>
-        <textarea readonly class="w-full min-h-40 rounded-lg border border-slate-300 bg-slate-50 p-3 text-xs text-slate-800 dark:border-slate-700 dark:bg-slate-950 dark:text-slate-100">Eres un asistente legal de intake. Clasifica documentos entrantes, prioriza urgencias y sugiere proximo paso procesal segun tipologia de expediente.</textarea>
-      `
-    },
-    a3: {
-      title: "Configurar agente: Ops Sentinel",
-      body: `
-        <p class="mb-2">System prompt activo:</p>
-        <textarea readonly class="w-full min-h-40 rounded-lg border border-slate-300 bg-slate-50 p-3 text-xs text-slate-800 dark:border-slate-700 dark:bg-slate-950 dark:text-slate-100">Monitorea endpoints criticos, calcula riesgo de SLA y eleva alertas accionables con runbook sugerido para equipos on-call.</textarea>
-      `
-    }
+    a1: { title: "Configurar SaaS Billing Copilot", body: "<p class='mb-2'>Prompt de sistema (editable):</p><textarea class='w-full min-h-40 rounded-lg border border-slate-300 bg-slate-50 p-3 text-xs dark:border-slate-700 dark:bg-slate-950'>Actuas como analista de facturacion SaaS. Detecta discrepancias, valida reglas de cupones y reporta incidentes con prioridad.</textarea>" },
+    a2: { title: "Configurar Legal Intake Navigator", body: "<p class='mb-2'>Prompt de sistema (editable):</p><textarea class='w-full min-h-40 rounded-lg border border-slate-300 bg-slate-50 p-3 text-xs dark:border-slate-700 dark:bg-slate-950'>Eres un asistente legal de intake. Clasifica documentos, prioriza urgencias y sugiere siguiente accion procesal.</textarea>" },
+    a3: { title: "Configurar Ops Sentinel", body: "<p class='mb-2'>Prompt de sistema (editable):</p><textarea class='w-full min-h-40 rounded-lg border border-slate-300 bg-slate-50 p-3 text-xs dark:border-slate-700 dark:bg-slate-950'>Monitorea endpoints criticos, detecta riesgos de SLA y propone runbooks para equipos on-call.</textarea>" },
+    a4: { title: "Configurar Calendar Ops Coordinator", body: "<p class='mb-2'>Prompt de sistema (editable):</p><textarea class='w-full min-h-40 rounded-lg border border-slate-300 bg-slate-50 p-3 text-xs dark:border-slate-700 dark:bg-slate-950'>Coordina agendas multiequipo, sugiere ventanas optimas y gestiona conflictos de reuniones.</textarea>" }
   },
   skills: {
-    s1: {
-      title: "Skill: Web Navigator",
-      body: `
-        <p class="mb-2">Parametros tecnicos:</p>
-        <pre class="overflow-x-auto rounded-lg bg-slate-900 p-3 text-xs text-cyan-200">{
-  "allowed_domains": ["status.agenthub.ai", "docs.partner.com"],
-  "max_depth": 3,
-  "request_timeout_ms": 5000,
-  "mode": "safe-crawl"
-}</pre>
-      `
-    },
-    s2: {
-      title: "Skill: Doc Reader",
-      body: `
-        <p class="mb-2">Parametros tecnicos:</p>
-        <pre class="overflow-x-auto rounded-lg bg-slate-900 p-3 text-xs text-cyan-200">{
-  "supported_types": ["pdf", "docx", "xlsx"],
-  "ocr": true,
-  "language_hint": "es,en",
-  "chunk_size": 1200
-}</pre>
-      `
-    },
-    s3: {
-      title: "Skill: Calendar Orchestrator",
-      body: `
-        <p class="mb-2">Parametros tecnicos:</p>
-        <pre class="overflow-x-auto rounded-lg bg-slate-900 p-3 text-xs text-cyan-200">{
-  "providers": ["google", "outlook"],
-  "sync_interval_min": 15,
-  "conflict_strategy": "propose-alternative",
-  "timezone": "UTC"
-}</pre>
-      `
-    }
+    s1: { title: "Skill: Web Navigator", body: "<pre class='overflow-auto rounded-lg bg-slate-900 p-3 text-xs text-cyan-200'>{\n  \"allowed_domains\": [\"status.agenthub.ai\", \"docs.partner.com\"],\n  \"max_depth\": 3,\n  \"timeout_ms\": 5000\n}</pre>" },
+    s2: { title: "Skill: Doc Reader", body: "<pre class='overflow-auto rounded-lg bg-slate-900 p-3 text-xs text-cyan-200'>{\n  \"types\": [\"pdf\", \"docx\", \"xlsx\"],\n  \"ocr\": true,\n  \"chunk_size\": 1200\n}</pre>" },
+    s3: { title: "Skill: Calendar Orchestrator", body: "<pre class='overflow-auto rounded-lg bg-slate-900 p-3 text-xs text-cyan-200'>{\n  \"providers\": [\"google\", \"outlook\"],\n  \"sync_interval_min\": 15,\n  \"conflict_strategy\": \"propose-alternative\"\n}</pre>" },
+    s4: { title: "Skill: Knowledge Retriever", body: "<pre class='overflow-auto rounded-lg bg-slate-900 p-3 text-xs text-cyan-200'>{\n  \"index\": \"internal-kb-v3\",\n  \"retrieval\": \"hybrid\",\n  \"top_k\": 5\n}</pre>" }
   },
   contracts: {
-    c1: {
-      title: "Detalle de contrato: Innotech",
-      body: `
-        <p><strong>Periodo:</strong> 01/05/2026 - 01/08/2026</p>
-        <div class="mt-3 rounded-lg border border-slate-200 p-3 dark:border-slate-700">
-          <p><strong>Desglose de skills:</strong></p>
-          <p>Facturacion API: $2,100</p>
-          <p>Alertas Email: $2,100</p>
-          <hr class="my-2 border-slate-200 dark:border-slate-700" />
-          <p><strong>Total:</strong> $4,200</p>
-        </div>
-      `
-    },
-    c2: {
-      title: "Detalle de contrato: Atlas Legal",
-      body: `
-        <p><strong>Periodo:</strong> 14/03/2026 - 14/06/2026</p>
-        <div class="mt-3 rounded-lg border border-slate-200 p-3 dark:border-slate-700">
-          <p><strong>Desglose de skills:</strong></p>
-          <p>OCR documentos: $1,300</p>
-          <p>Clasificacion legal: $1,560</p>
-          <hr class="my-2 border-slate-200 dark:border-slate-700" />
-          <p><strong>Total:</strong> $2,860</p>
-        </div>
-      `
-    },
-    c3: {
-      title: "Detalle de contrato: FluxPayments",
-      body: `
-        <p><strong>Periodo:</strong> 01/01/2026 - 01/01/2027</p>
-        <div class="mt-3 rounded-lg border border-slate-200 p-3 dark:border-slate-700">
-          <p><strong>Desglose de skills:</strong></p>
-          <p>Monitoreo API: $4,200</p>
-          <p>SLA scoring: $4,710</p>
-          <hr class="my-2 border-slate-200 dark:border-slate-700" />
-          <p><strong>Total:</strong> $8,910</p>
-        </div>
-      `
-    }
+    c1: { title: "Contrato Innotech", body: "<p><strong>Periodo:</strong> 01/05/2026 - 01/08/2026</p><div class='mt-3 rounded-lg border border-slate-200 p-3 dark:border-slate-700'><p><strong>Facturacion API:</strong> $2,100</p><p><strong>Alertas Email:</strong> $2,100</p><hr class='my-2 border-slate-200 dark:border-slate-700' /><p><strong>Total:</strong> $4,200</p></div>" },
+    c2: { title: "Contrato Atlas Legal", body: "<p><strong>Periodo:</strong> 14/03/2026 - 14/06/2026</p><div class='mt-3 rounded-lg border border-slate-200 p-3 dark:border-slate-700'><p><strong>OCR documentos:</strong> $1,300</p><p><strong>Clasificacion legal:</strong> $1,560</p><hr class='my-2 border-slate-200 dark:border-slate-700' /><p><strong>Total:</strong> $2,860</p></div>" },
+    c3: { title: "Contrato FluxPayments", body: "<p><strong>Periodo:</strong> 01/01/2026 - 01/01/2027</p><div class='mt-3 rounded-lg border border-slate-200 p-3 dark:border-slate-700'><p><strong>Monitoreo API:</strong> $4,200</p><p><strong>SLA scoring:</strong> $4,710</p><hr class='my-2 border-slate-200 dark:border-slate-700' /><p><strong>Total:</strong> $8,910</p></div>" },
+    c4: { title: "Contrato CloudKinetics", body: "<p><strong>Periodo:</strong> 10/04/2026 - 10/10/2026</p><div class='mt-3 rounded-lg border border-slate-200 p-3 dark:border-slate-700'><p><strong>Calendar sync:</strong> $1,900</p><p><strong>Reminder bot:</strong> $1,540</p><hr class='my-2 border-slate-200 dark:border-slate-700' /><p><strong>Total:</strong> $3,440</p></div>" }
   },
   errors: {
-    e1: {
-      title: "Traza completa: API_TIMEOUT",
-      body: `
-        <pre class="max-h-72 overflow-auto rounded-lg bg-slate-900 p-3 text-xs text-emerald-300">2026-07-12T09:10:33Z [CRITICAL] Ops Sentinel
-RequestError: API timeout after 5000ms
- at fetchEndpoint (skills/monitor.js:88)
- at runHealthCheck (agent/runtime.js:214)
- traceId=trc_9f4a2a1 channel=prod-eu-west</pre>
-      `
-    },
-    e2: {
-      title: "Traza completa: RATE_LIMIT",
-      body: `
-        <pre class="max-h-72 overflow-auto rounded-lg bg-slate-900 p-3 text-xs text-emerald-300">2026-07-12T08:52:20Z [WARNING] SaaS Billing Copilot
-ProviderError: 429 Too Many Requests
- at executeBillingSync (agents/billing.js:137)
- retryAfter=30s provider=stripe-proxy</pre>
-      `
-    },
-    e3: {
-      title: "Traza completa: AUTH_FAILURE",
-      body: `
-        <pre class="max-h-72 overflow-auto rounded-lg bg-slate-900 p-3 text-xs text-emerald-300">2026-07-12T07:41:11Z [INFO] Legal Intake Navigator
-AuthError: token expired
- at refreshToken (skills/document_reader.js:44)
- tenant=atlas-legal scope=document.read</pre>
-      `
-    }
+    e1: { title: "Traza API_TIMEOUT", body: "<pre class='max-h-72 overflow-auto rounded-lg bg-slate-900 p-3 text-xs text-emerald-300'>2026-07-12T09:10:33Z [CRITICAL] Ops Sentinel\nRequestError: timeout 5000ms\nat fetchEndpoint (skills/monitor.js:88)</pre>" },
+    e2: { title: "Traza RATE_LIMIT", body: "<pre class='max-h-72 overflow-auto rounded-lg bg-slate-900 p-3 text-xs text-emerald-300'>2026-07-12T08:52:20Z [WARNING] SaaS Billing Copilot\nProviderError: 429 Too Many Requests\nat executeBillingSync (agents/billing.js:137)</pre>" },
+    e3: { title: "Traza AUTH_FAILURE", body: "<pre class='max-h-72 overflow-auto rounded-lg bg-slate-900 p-3 text-xs text-emerald-300'>2026-07-12T07:41:11Z [INFO] Legal Intake Navigator\nAuthError: token expired\nat refreshToken (skills/document_reader.js:44)</pre>" },
+    e4: { title: "Traza SYNC_DELAY", body: "<pre class='max-h-72 overflow-auto rounded-lg bg-slate-900 p-3 text-xs text-emerald-300'>2026-07-12T07:10:02Z [WARNING] Calendar Ops Coordinator\nSync delay > 90 seconds\nat syncCalendar (skills/calendar.js:112)</pre>" },
+    e5: { title: "Traza WEBHOOK_FAIL", body: "<pre class='max-h-72 overflow-auto rounded-lg bg-slate-900 p-3 text-xs text-emerald-300'>2026-07-12T06:55:44Z [CRITICAL] Ops Sentinel\nWebhook POST failed 503\nat sendWebhook (alerts/webhook.js:77)</pre>" },
+    e6: { title: "Traza PARSER_WARNING", body: "<pre class='max-h-72 overflow-auto rounded-lg bg-slate-900 p-3 text-xs text-emerald-300'>2026-07-12T06:30:15Z [INFO] SaaS Billing Copilot\nCsvParserWarning: irregular separator\nat parseBatch (skills/parser.js:51)</pre>" }
   }
 };
 
-const navItems = document.querySelectorAll(".nav-item");
-const sections = document.querySelectorAll(".panel-section");
+const navItems = document.querySelectorAll("[data-nav-item]");
+const sections = document.querySelectorAll("[data-panel-section]");
 const pageTitle = document.getElementById("page-title");
-const themeToggle = document.getElementById("themeToggle");
-const themeToggleText = document.getElementById("themeToggleText");
-const themeToggleIcon = document.getElementById("themeToggleIcon");
 
-const modalRoot = document.getElementById("modalRoot");
-const modalBackdrop = document.getElementById("modalBackdrop");
-const modalTitle = document.getElementById("modalTitle");
-const modalBody = document.getElementById("modalBody");
-const modalCloseTop = document.getElementById("modalCloseTop");
-const modalCloseBottom = document.getElementById("modalCloseBottom");
+const themeToggle = document.getElementById("theme-toggle");
+const themeText = document.getElementById("theme-text");
+const themeIcon = document.getElementById("theme-icon");
 
-let lastFocusedElement = null;
+const modalRoot = document.getElementById("modal-root");
+const modalBackdrop = document.getElementById("modal-backdrop");
+const modalTitle = document.getElementById("modal-title");
+const modalBody = document.getElementById("modal-body");
+const modalCloseTop = document.getElementById("modal-close-top");
+const modalCloseBottom = document.getElementById("modal-close-bottom");
+
+let lastFocused = null;
 
 function setTheme(isDark) {
   document.documentElement.classList.toggle("dark", isDark);
   localStorage.setItem("agenthub-theme", isDark ? "dark" : "light");
-  themeToggleText.textContent = isDark ? "Modo claro" : "Modo oscuro";
-  themeToggleIcon.textContent = isDark ? "🌙" : "🌞";
+  themeText.textContent = isDark ? "Modo claro" : "Modo oscuro";
+  themeIcon.textContent = isDark ? "🌞" : "🌙";
 }
 
 function hydrateTheme() {
-  const saved = localStorage.getItem("agenthub-theme");
-  const shouldUseDark = saved === "dark";
-  setTheme(shouldUseDark);
+  setTheme(localStorage.getItem("agenthub-theme") === "dark");
 }
 
 function closeAllDropdowns() {
-  document.querySelectorAll(".action-menu").forEach((menu) => menu.classList.add("hidden"));
-  document.querySelectorAll(".action-btn[aria-expanded='true']").forEach((btn) => {
-    btn.setAttribute("aria-expanded", "false");
-  });
+  document.querySelectorAll("[data-action-toggle]").forEach((toggle) => toggle.setAttribute("aria-expanded", "false"));
+  document.querySelectorAll("[role='menu']").forEach((menu) => menu.classList.add("hidden"));
 }
 
 function switchSection(sectionId) {
-  sections.forEach((section) => {
-    section.classList.toggle("hidden", section.id !== sectionId);
-  });
+  sections.forEach((section) => section.classList.toggle("hidden", section.id !== sectionId));
   navItems.forEach((item) => {
-    item.classList.toggle("is-active", item.dataset.section === sectionId);
+    const active = item.dataset.section === sectionId;
+    item.className = active
+      ? "w-full rounded-xl bg-cyan-600 px-3 py-2 text-left text-sm font-semibold text-white shadow"
+      : "w-full rounded-xl px-3 py-2 text-left text-sm font-semibold text-slate-700 hover:bg-slate-100 dark:text-slate-200 dark:hover:bg-slate-800";
   });
-  pageTitle.textContent = titleBySection[sectionId] || "AgentHub";
+  pageTitle.textContent = titleBySection[sectionId] || "Dashboard";
   closeAllDropdowns();
 }
 
-function openModal(title, contentHtml) {
-  lastFocusedElement = document.activeElement;
+function openModal(title, bodyHtml) {
+  lastFocused = document.activeElement;
   modalTitle.textContent = title;
-  modalBody.innerHTML = contentHtml;
+  modalBody.innerHTML = bodyHtml;
   modalRoot.classList.remove("hidden");
   modalRoot.setAttribute("aria-hidden", "false");
   document.body.classList.add("overflow-hidden");
@@ -234,12 +101,10 @@ function openModal(title, contentHtml) {
 function closeModal() {
   modalRoot.classList.add("hidden");
   modalRoot.setAttribute("aria-hidden", "true");
-  document.body.classList.remove("overflow-hidden");
   modalTitle.textContent = "";
   modalBody.innerHTML = "";
-  if (lastFocusedElement) {
-    lastFocusedElement.focus();
-  }
+  document.body.classList.remove("overflow-hidden");
+  if (lastFocused) lastFocused.focus();
 }
 
 function getModalPayload(action, id) {
@@ -251,77 +116,74 @@ function getModalPayload(action, id) {
   return null;
 }
 
-function resolveErrorRow(id) {
+function resolveError(id) {
   const row = document.querySelector(`[data-error-row='${id}']`);
   if (!row) return;
-  row.classList.add("row-resolved");
+  row.classList.add("opacity-50", "line-through");
 }
 
 navItems.forEach((item) => {
-  item.addEventListener("click", () => {
-    switchSection(item.dataset.section);
-  });
+  item.addEventListener("click", () => switchSection(item.dataset.section));
 });
 
 themeToggle.addEventListener("click", () => {
-  const currentlyDark = document.documentElement.classList.contains("dark");
-  setTheme(!currentlyDark);
+  setTheme(!document.documentElement.classList.contains("dark"));
 });
 
 document.addEventListener("click", (event) => {
-  const actionButton = event.target.closest(".action-btn");
-  const menuAction = event.target.closest(".action-menu button");
-  const expandButton = event.target.closest(".expand-btn");
+  const actionToggle = event.target.closest("[data-action-toggle]");
+  const actionButton = event.target.closest("[data-action]");
+  const collapseToggle = event.target.closest("[data-collapse-toggle]");
 
-  if (actionButton) {
-    const wrapper = actionButton.closest(".dropdown-wrap");
-    const menu = wrapper?.querySelector(".action-menu");
+  if (actionToggle) {
+    const wrapper = actionToggle.closest("[data-dropdown]");
+    const menu = wrapper?.querySelector("[role='menu']");
     if (!menu) return;
 
     const willOpen = menu.classList.contains("hidden");
     closeAllDropdowns();
     if (willOpen) {
       menu.classList.remove("hidden");
-      actionButton.setAttribute("aria-expanded", "true");
+      actionToggle.setAttribute("aria-expanded", "true");
     }
     return;
   }
 
-  if (menuAction) {
-    const { action, id } = menuAction.dataset;
+  if (actionButton) {
+    const { action, id } = actionButton.dataset;
     closeAllDropdowns();
 
     if (action === "delete") {
-      alert("Accion de eliminacion simulada para ID: " + id);
+      alert(`Eliminacion simulada para ID ${id}`);
       return;
     }
 
     if (action === "resolve-error") {
-      resolveErrorRow(id);
+      resolveError(id);
       return;
     }
 
     const payload = getModalPayload(action, id);
-    if (payload) {
-      openModal(payload.title, payload.body);
-    }
+    if (payload) openModal(payload.title, payload.body);
     return;
   }
 
-  if (expandButton) {
-    const targetId = expandButton.dataset.collapseTarget;
-    const panel = document.getElementById(targetId);
-    if (!panel) return;
+  if (collapseToggle) {
+    const target = document.getElementById(collapseToggle.dataset.collapseToggle);
+    if (!target) return;
 
-    const willOpen = !panel.classList.contains("is-open");
-    panel.classList.toggle("is-open", willOpen);
-    panel.setAttribute("aria-hidden", String(!willOpen));
-    expandButton.setAttribute("aria-expanded", String(willOpen));
-    expandButton.textContent = willOpen ? "Ocultar skills" : "Ver skills";
+    const isOpen = !target.classList.contains("max-h-0");
+    target.classList.toggle("max-h-0", isOpen);
+    target.classList.toggle("opacity-0", isOpen);
+    target.classList.toggle("max-h-40", !isOpen);
+    target.classList.toggle("opacity-100", !isOpen);
+    target.setAttribute("aria-hidden", String(isOpen));
+    collapseToggle.setAttribute("aria-expanded", String(!isOpen));
+    collapseToggle.textContent = isOpen ? "Ver skills" : "Ocultar skills";
     return;
   }
 
-  if (!event.target.closest(".dropdown-wrap")) {
+  if (!event.target.closest("[data-dropdown]")) {
     closeAllDropdowns();
   }
 });

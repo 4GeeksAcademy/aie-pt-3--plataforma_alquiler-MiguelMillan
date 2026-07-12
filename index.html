@@ -3,499 +3,234 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>AgentHub Admin Panel</title>
+    <title>AgentHub | Panel de administracion</title>
     <meta
       name="description"
-      content="Panel de administracion interno de AgentHub para gestionar usuarios, agentes, skills, contrataciones y errores operativos."
-    />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap"
-      rel="stylesheet"
+      content="Panel interno de AgentHub para supervisar dashboard, usuarios, agentes, skills, contratos y log de errores con datos hardcodeados."
     />
     <script>
-      tailwind = {
-        config: {
-          darkMode: "class"
-        }
-      };
+      tailwind = { config: { darkMode: "class" } };
     </script>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="styles.css" />
   </head>
-  <body class="antialiased">
-    <div class="panel-bg fixed inset-0 -z-10"></div>
-
-    <aside
-      class="fixed inset-y-0 left-0 z-40 w-72 border-r border-slate-200/60 bg-white/90 p-6 backdrop-blur-sm dark:border-slate-800 dark:bg-slate-950/85"
-      aria-label="Navegacion principal"
-    >
-      <div class="mb-8 flex items-center gap-3">
-        <div class="h-10 w-10 rounded-xl bg-cyan-500/15 p-2 text-cyan-700 dark:text-cyan-300">
-          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true" class="h-full w-full">
-            <path
-              d="M12 3L4 8v8l8 5 8-5V8l-8-5zm0 2.4L17.6 9 12 12.6 6.4 9 12 5.4zm-6 5.2l5 3.2v6.1l-5-3.1v-6.2zm7 9.3v-6.1l5-3.2v6.2l-5 3.1z"
-              fill="currentColor"
-            />
-          </svg>
-        </div>
-        <div>
-          <p class="font-display text-xl font-bold tracking-tight text-slate-900 dark:text-white">AgentHub</p>
-          <p class="text-xs font-medium uppercase tracking-wide text-slate-500 dark:text-slate-400">Admin Console</p>
-        </div>
-      </div>
-
-      <nav class="space-y-2" aria-label="Secciones del panel">
-        <button class="nav-item is-active" data-section="dashboard">Dashboard</button>
-        <button class="nav-item" data-section="users">Gestion de usuarios</button>
-        <button class="nav-item" data-section="agents">Gestion de agentes</button>
-        <button class="nav-item" data-section="skills">Skills</button>
-        <button class="nav-item" data-section="contracts">Contrataciones</button>
-        <button class="nav-item" data-section="errors">Log de errores</button>
-      </nav>
-    </aside>
-
-    <div class="ml-0 min-h-screen md:ml-72">
-      <header
-        class="sticky top-0 z-30 border-b border-slate-200/70 bg-white/90 px-5 py-4 backdrop-blur-sm dark:border-slate-800 dark:bg-slate-950/85 md:px-8"
-      >
-        <div class="flex items-center justify-between gap-3">
+  <body class="min-h-screen bg-gradient-to-br from-slate-100 via-cyan-50 to-amber-50 text-slate-900 antialiased dark:from-slate-950 dark:via-slate-900 dark:to-slate-950 dark:text-slate-100">
+    <div class="md:flex">
+      <aside class="md:sticky md:top-0 md:h-screen md:w-72 md:flex-shrink-0 border-b border-slate-200 bg-white/90 p-5 backdrop-blur md:border-b-0 md:border-r dark:border-slate-800 dark:bg-slate-950/85" aria-label="Navegacion principal">
+        <div class="mb-6 flex items-center gap-3">
+          <div class="grid h-10 w-10 place-items-center rounded-xl bg-cyan-500/20 text-lg font-black text-cyan-700 dark:text-cyan-300">AH</div>
           <div>
-            <h1 id="page-title" class="font-display text-2xl font-bold text-slate-900 dark:text-white">Dashboard</h1>
-            <p class="text-sm text-slate-600 dark:text-slate-300">Supervisa y controla la operacion de AgentHub.</p>
+            <p class="text-lg font-bold">AgentHub</p>
+            <p class="text-xs uppercase tracking-wide text-slate-500 dark:text-slate-400">Admin Panel</p>
           </div>
-          <button
-            id="themeToggle"
-            class="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white px-4 py-2 text-sm font-semibold text-slate-700 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-500 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100"
-            aria-label="Alternar modo claro y oscuro"
-            type="button"
-          >
-            <span id="themeToggleIcon" aria-hidden="true">🌞</span>
-            <span id="themeToggleText">Modo oscuro</span>
-          </button>
         </div>
-      </header>
+        <nav class="space-y-2" aria-label="Secciones">
+          <button type="button" data-nav-item data-section="dashboard" class="w-full rounded-xl bg-cyan-600 px-3 py-2 text-left text-sm font-semibold text-white shadow">Dashboard</button>
+          <button type="button" data-nav-item data-section="users" class="w-full rounded-xl px-3 py-2 text-left text-sm font-semibold text-slate-700 hover:bg-slate-100 dark:text-slate-200 dark:hover:bg-slate-800">Gestion de usuarios</button>
+          <button type="button" data-nav-item data-section="agents" class="w-full rounded-xl px-3 py-2 text-left text-sm font-semibold text-slate-700 hover:bg-slate-100 dark:text-slate-200 dark:hover:bg-slate-800">Gestion de agentes</button>
+          <button type="button" data-nav-item data-section="skills" class="w-full rounded-xl px-3 py-2 text-left text-sm font-semibold text-slate-700 hover:bg-slate-100 dark:text-slate-200 dark:hover:bg-slate-800">Skills</button>
+          <button type="button" data-nav-item data-section="contracts" class="w-full rounded-xl px-3 py-2 text-left text-sm font-semibold text-slate-700 hover:bg-slate-100 dark:text-slate-200 dark:hover:bg-slate-800">Contrataciones</button>
+          <button type="button" data-nav-item data-section="errors" class="w-full rounded-xl px-3 py-2 text-left text-sm font-semibold text-slate-700 hover:bg-slate-100 dark:text-slate-200 dark:hover:bg-slate-800">Log de errores</button>
+        </nav>
+      </aside>
 
-      <main class="px-5 py-6 md:px-8" aria-live="polite">
-        <section id="dashboard" class="panel-section space-y-6" data-title="Dashboard">
-          <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
-            <article class="metric-card">
-              <div class="metric-icon bg-emerald-500/15 text-emerald-700 dark:text-emerald-300">$</div>
-              <p class="metric-label">Ingresos de este mes</p>
-              <p class="metric-value">$184,920</p>
-            </article>
-            <article class="metric-card">
-              <div class="metric-icon bg-amber-500/15 text-amber-700 dark:text-amber-300">%</div>
-              <p class="metric-label">Perdida por cupones</p>
-              <p class="metric-value">$12,430</p>
-            </article>
-            <article class="metric-card">
-              <div class="metric-icon bg-cyan-500/15 text-cyan-700 dark:text-cyan-300">AI</div>
-              <p class="metric-label">Agentes activos</p>
-              <p class="metric-value">398</p>
-            </article>
-            <article class="metric-card">
-              <div class="metric-icon bg-rose-500/15 text-rose-700 dark:text-rose-300">!</div>
-              <p class="metric-label">Agentes fallando</p>
-              <p class="metric-value text-rose-600 dark:text-rose-300">11</p>
-            </article>
+      <div class="w-full min-w-0">
+        <header class="sticky top-0 z-20 border-b border-slate-200 bg-white/90 px-4 py-4 backdrop-blur md:px-8 dark:border-slate-800 dark:bg-slate-950/85">
+          <div class="flex items-center justify-between gap-3">
+            <div>
+              <h1 id="page-title" class="text-2xl font-black tracking-tight">Dashboard</h1>
+              <p class="text-sm text-slate-600 dark:text-slate-300">Centro de control operativo de AgentHub</p>
+            </div>
+            <button id="theme-toggle" type="button" class="inline-flex items-center gap-2 rounded-full border border-slate-300 bg-white px-4 py-2 text-sm font-semibold text-slate-800 hover:bg-slate-100 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100 dark:hover:bg-slate-800" aria-label="Cambiar tema">
+              <span id="theme-icon" aria-hidden="true">🌙</span>
+              <span id="theme-text">Modo oscuro</span>
+            </button>
           </div>
+        </header>
 
-          <div
-            class="flex h-72 items-center justify-center rounded-2xl border-2 border-dashed border-slate-300 bg-white/80 text-center text-slate-500 dark:border-slate-700 dark:bg-slate-900/70 dark:text-slate-300"
-            role="img"
-            aria-label="Marcador de posicion para grafico de actividad semanal"
-          >
-            Marcador de posicion: Grafico de Actividad Semanal
-          </div>
-        </section>
-
-        <section id="users" class="panel-section hidden space-y-6" data-title="Gestion de usuarios">
-          <article class="panel-card">
-            <div class="mb-4 flex items-center justify-between gap-3">
-              <h2 class="panel-title">Usuarios registrados</h2>
-              <span class="panel-kicker">Total: 6</span>
-            </div>
-            <div class="overflow-x-auto">
-              <table class="data-table">
-                <thead>
-                  <tr>
-                    <th scope="col">Nombre</th>
-                    <th scope="col">Email</th>
-                    <th scope="col">Plan</th>
-                    <th scope="col">Estado</th>
-                    <th scope="col" class="text-right">Acciones</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>Laura Naranjo</td>
-                    <td>laura.naranjo@innotech.ai</td>
-                    <td>Enterprise</td>
-                    <td><span class="badge badge-ok">Activo</span></td>
-                    <td class="text-right"> 
-                      <div class="dropdown-wrap">
-                        <button class="action-btn" aria-label="Abrir acciones de usuario Laura Naranjo" aria-expanded="false" aria-controls="menu-user-1">⋮</button>
-                        <div id="menu-user-1" class="action-menu hidden" role="menu">
-                          <button data-action="view-user" data-id="u1">Ver detalle</button>
-                          <button data-action="delete" data-id="u1">Eliminar</button>
-                        </div>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>Ruben Castro</td>
-                    <td>ruben.castro@fluxpayments.com</td>
-                    <td>Profesional</td>
-                    <td><span class="badge badge-ok">Activo</span></td>
-                    <td class="text-right">
-                      <div class="dropdown-wrap">
-                        <button class="action-btn" aria-label="Abrir acciones de usuario Ruben Castro" aria-expanded="false" aria-controls="menu-user-2">⋮</button>
-                        <div id="menu-user-2" class="action-menu hidden" role="menu">
-                          <button data-action="view-user" data-id="u2">Ver detalle</button>
-                          <button data-action="delete" data-id="u2">Eliminar</button>
-                        </div>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>Ana Silva</td>
-                    <td>ana.silva@novatech.io</td>
-                    <td>Basico</td>
-                    <td><span class="badge badge-muted">Suspendido</span></td>
-                    <td class="text-right">
-                      <div class="dropdown-wrap">
-                        <button class="action-btn" aria-label="Abrir acciones de usuario Ana Silva" aria-expanded="false" aria-controls="menu-user-3">⋮</button>
-                        <div id="menu-user-3" class="action-menu hidden" role="menu">
-                          <button data-action="view-user" data-id="u3">Ver detalle</button>
-                          <button data-action="delete" data-id="u3">Eliminar</button>
-                        </div>
-                      </div>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </article>
-        </section>
-
-        <section id="agents" class="panel-section hidden space-y-6" data-title="Gestion de agentes">
-          <article class="panel-card">
-            <div class="mb-4 flex items-center justify-between gap-3">
-              <h2 class="panel-title">Agentes registrados</h2>
-              <span class="panel-kicker">Estado en tiempo real</span>
-            </div>
-
-            <div class="space-y-3">
-              <article class="agent-row">
-                <div class="agent-main">
-                  <div>
-                    <p class="font-semibold text-slate-900 dark:text-white">SaaS Billing Copilot</p>
-                    <p class="text-sm text-slate-500 dark:text-slate-400">Propietario: Innotech</p>
-                  </div>
-                  <div class="flex items-center gap-2">
-                    <span class="badge badge-ok">Activo</span>
-                    <button class="expand-btn" data-collapse-target="agent-s1" aria-expanded="false">Ver skills</button>
-                    <div class="dropdown-wrap">
-                      <button class="action-btn" aria-label="Acciones de SaaS Billing Copilot" aria-expanded="false" aria-controls="menu-agent-1">⋮</button>
-                      <div id="menu-agent-1" class="action-menu hidden" role="menu">
-                        <button data-action="config-agent" data-id="a1">Configurar</button>
-                        <button data-action="delete" data-id="a1">Eliminar</button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div id="agent-s1" class="collapse-box" aria-hidden="true">
-                  <div class="collapse-inner">
-                    <span class="skill-tag">Facturacion API</span>
-                    <span class="skill-tag">Conciliacion CSV</span>
-                    <span class="skill-tag">Alertas Email</span>
-                  </div>
-                </div>
+        <main class="px-4 py-6 md:px-8" aria-live="polite">
+          <section id="dashboard" data-panel-section class="space-y-6">
+            <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
+              <article class="rounded-2xl border border-emerald-200 bg-white/90 p-4 shadow-sm dark:border-emerald-900/60 dark:bg-slate-900/80">
+                <div class="mb-3 inline-flex h-9 w-9 items-center justify-center rounded-lg bg-emerald-500/20 text-lg text-emerald-700 dark:text-emerald-300">💰</div>
+                <p class="text-xs font-medium uppercase tracking-wide text-slate-500 dark:text-slate-400">Ingresos totales</p>
+                <p class="mt-1 text-2xl font-bold">$184,920</p>
               </article>
-
-              <article class="agent-row">
-                <div class="agent-main">
-                  <div>
-                    <p class="font-semibold text-slate-900 dark:text-white">Legal Intake Navigator</p>
-                    <p class="text-sm text-slate-500 dark:text-slate-400">Propietario: Atlas Legal</p>
-                  </div>
-                  <div class="flex items-center gap-2">
-                    <span class="badge badge-muted">Inactivo</span>
-                    <button class="expand-btn" data-collapse-target="agent-s2" aria-expanded="false">Ver skills</button>
-                    <div class="dropdown-wrap">
-                      <button class="action-btn" aria-label="Acciones de Legal Intake Navigator" aria-expanded="false" aria-controls="menu-agent-2">⋮</button>
-                      <div id="menu-agent-2" class="action-menu hidden" role="menu">
-                        <button data-action="config-agent" data-id="a2">Configurar</button>
-                        <button data-action="delete" data-id="a2">Eliminar</button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div id="agent-s2" class="collapse-box" aria-hidden="true">
-                  <div class="collapse-inner">
-                    <span class="skill-tag">OCR documentos</span>
-                    <span class="skill-tag">Clasificacion legal</span>
-                  </div>
-                </div>
+              <article class="rounded-2xl border border-amber-200 bg-white/90 p-4 shadow-sm dark:border-amber-900/60 dark:bg-slate-900/80">
+                <div class="mb-3 inline-flex h-9 w-9 items-center justify-center rounded-lg bg-amber-500/20 text-lg text-amber-700 dark:text-amber-300">🏷️</div>
+                <p class="text-xs font-medium uppercase tracking-wide text-slate-500 dark:text-slate-400">Perdidas por descuentos</p>
+                <p class="mt-1 text-2xl font-bold">$12,430</p>
               </article>
-
-              <article class="agent-row">
-                <div class="agent-main">
-                  <div>
-                    <p class="font-semibold text-slate-900 dark:text-white">Ops Sentinel</p>
-                    <p class="text-sm text-slate-500 dark:text-slate-400">Propietario: FluxPayments</p>
-                  </div>
-                  <div class="flex items-center gap-2">
-                    <span class="badge badge-danger">Fallando</span>
-                    <button class="expand-btn" data-collapse-target="agent-s3" aria-expanded="false">Ver skills</button>
-                    <div class="dropdown-wrap">
-                      <button class="action-btn" aria-label="Acciones de Ops Sentinel" aria-expanded="false" aria-controls="menu-agent-3">⋮</button>
-                      <div id="menu-agent-3" class="action-menu hidden" role="menu">
-                        <button data-action="config-agent" data-id="a3">Configurar</button>
-                        <button data-action="delete" data-id="a3">Eliminar</button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div id="agent-s3" class="collapse-box" aria-hidden="true">
-                  <div class="collapse-inner">
-                    <span class="skill-tag">Monitoreo API</span>
-                    <span class="skill-tag">Pager escalation</span>
-                    <span class="skill-tag">SLA scoring</span>
-                  </div>
-                </div>
+              <article class="rounded-2xl border border-cyan-200 bg-white/90 p-4 shadow-sm dark:border-cyan-900/60 dark:bg-slate-900/80">
+                <div class="mb-3 inline-flex h-9 w-9 items-center justify-center rounded-lg bg-cyan-500/20 text-lg text-cyan-700 dark:text-cyan-300">🤖</div>
+                <p class="text-xs font-medium uppercase tracking-wide text-slate-500 dark:text-slate-400">Agentes activos</p>
+                <p class="mt-1 text-2xl font-bold">398</p>
+              </article>
+              <article class="rounded-2xl border border-rose-200 bg-white/90 p-4 shadow-sm dark:border-rose-900/60 dark:bg-slate-900/80">
+                <div class="mb-3 inline-flex h-9 w-9 items-center justify-center rounded-lg bg-rose-500/20 text-lg text-rose-700 dark:text-rose-300">⚠️</div>
+                <p class="text-xs font-medium uppercase tracking-wide text-slate-500 dark:text-slate-400">Agentes fallando</p>
+                <p class="mt-1 text-2xl font-bold text-rose-600 dark:text-rose-300">11</p>
               </article>
             </div>
-          </article>
-        </section>
-
-        <section id="skills" class="panel-section hidden space-y-6" data-title="Skills">
-          <article class="rounded-2xl border border-cyan-200 bg-cyan-50/80 p-5 text-cyan-900 dark:border-cyan-900/60 dark:bg-cyan-950/40 dark:text-cyan-200">
-            <h2 class="font-display text-lg font-bold">Que es una skill en AgentHub</h2>
-            <p class="mt-2 text-sm leading-relaxed">
-              Una skill es un modulo operativo que extiende las capacidades de un agente. Permite conectar fuentes,
-              ejecutar acciones especializadas y adaptar comportamiento segun el caso de negocio.
-            </p>
-          </article>
-
-          <article class="panel-card">
-            <div class="overflow-x-auto">
-              <table class="data-table">
-                <thead>
-                  <tr>
-                    <th scope="col">Skill</th>
-                    <th scope="col">Descripcion</th>
-                    <th scope="col">Adopcion</th>
-                    <th scope="col" class="text-right">Acciones</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>Web Navigator</td>
-                    <td>Navega y extrae datos de sitios autorizados.</td>
-                    <td><span class="badge badge-info">24 agentes</span></td>
-                    <td class="text-right">
-                      <div class="dropdown-wrap">
-                        <button class="action-btn" aria-label="Acciones de skill Web Navigator" aria-expanded="false" aria-controls="menu-skill-1">⋮</button>
-                        <div id="menu-skill-1" class="action-menu hidden" role="menu">
-                          <button data-action="view-skill" data-id="s1">Ver detalle</button>
-                          <button data-action="delete" data-id="s1">Eliminar</button>
-                        </div>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>Doc Reader</td>
-                    <td>Lee PDF, DOCX y hojas de calculo con OCR ligero.</td>
-                    <td><span class="badge badge-info">19 agentes</span></td>
-                    <td class="text-right">
-                      <div class="dropdown-wrap">
-                        <button class="action-btn" aria-label="Acciones de skill Doc Reader" aria-expanded="false" aria-controls="menu-skill-2">⋮</button>
-                        <div id="menu-skill-2" class="action-menu hidden" role="menu">
-                          <button data-action="view-skill" data-id="s2">Ver detalle</button>
-                          <button data-action="delete" data-id="s2">Eliminar</button>
-                        </div>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>Calendar Orchestrator</td>
-                    <td>Sincroniza calendarios y agenda tareas recurrentes.</td>
-                    <td><span class="badge badge-info">31 agentes</span></td>
-                    <td class="text-right">
-                      <div class="dropdown-wrap">
-                        <button class="action-btn" aria-label="Acciones de skill Calendar Orchestrator" aria-expanded="false" aria-controls="menu-skill-3">⋮</button>
-                        <div id="menu-skill-3" class="action-menu hidden" role="menu">
-                          <button data-action="view-skill" data-id="s3">Ver detalle</button>
-                          <button data-action="delete" data-id="s3">Eliminar</button>
-                        </div>
-                      </div>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
+            <div class="flex h-72 w-full items-center justify-center rounded-2xl border-2 border-dashed border-slate-300 bg-white/70 text-center text-sm font-medium text-slate-500 dark:border-slate-700 dark:bg-slate-900/70 dark:text-slate-300" role="img" aria-label="Placeholder de grafico de actividad semanal">
+              Area de ancho completo: Grafico de actividad semanal (placeholder)
             </div>
-          </article>
-        </section>
+          </section>
 
-        <section id="contracts" class="panel-section hidden space-y-6" data-title="Contrataciones de agentes">
-          <article class="panel-card">
-            <div class="overflow-x-auto">
-              <table class="data-table">
-                <thead>
-                  <tr>
-                    <th scope="col">Cliente</th>
-                    <th scope="col">Agente</th>
-                    <th scope="col">Skills</th>
-                    <th scope="col">Fechas</th>
-                    <th scope="col">Importe</th>
-                    <th scope="col" class="text-right">Acciones</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>Innotech</td>
-                    <td>SaaS Billing Copilot</td>
-                    <td>Facturacion API, Alertas Email</td>
-                    <td>01/05/2026 - 01/08/2026</td>
-                    <td>$4,200</td>
-                    <td class="text-right">
-                      <div class="dropdown-wrap">
-                        <button class="action-btn" aria-label="Acciones de contrato de Innotech" aria-expanded="false" aria-controls="menu-contract-1">⋮</button>
-                        <div id="menu-contract-1" class="action-menu hidden" role="menu">
-                          <button data-action="view-contract" data-id="c1">Ver detalle</button>
-                        </div>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>Atlas Legal</td>
-                    <td>Legal Intake Navigator</td>
-                    <td>OCR documentos, Clasificacion legal</td>
-                    <td>14/03/2026 - 14/06/2026</td>
-                    <td>$2,860</td>
-                    <td class="text-right">
-                      <div class="dropdown-wrap">
-                        <button class="action-btn" aria-label="Acciones de contrato de Atlas Legal" aria-expanded="false" aria-controls="menu-contract-2">⋮</button>
-                        <div id="menu-contract-2" class="action-menu hidden" role="menu">
-                          <button data-action="view-contract" data-id="c2">Ver detalle</button>
-                        </div>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>FluxPayments</td>
-                    <td>Ops Sentinel</td>
-                    <td>Monitoreo API, SLA scoring</td>
-                    <td>01/01/2026 - 01/01/2027</td>
-                    <td>$8,910</td>
-                    <td class="text-right">
-                      <div class="dropdown-wrap">
-                        <button class="action-btn" aria-label="Acciones de contrato de FluxPayments" aria-expanded="false" aria-controls="menu-contract-3">⋮</button>
-                        <div id="menu-contract-3" class="action-menu hidden" role="menu">
-                          <button data-action="view-contract" data-id="c3">Ver detalle</button>
-                        </div>
-                      </div>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </article>
-        </section>
+          <section id="users" data-panel-section class="hidden space-y-4">
+            <article class="rounded-2xl border border-slate-200 bg-white/90 p-4 shadow-sm dark:border-slate-700 dark:bg-slate-900/85">
+              <div class="mb-3 flex items-center justify-between">
+                <h2 class="text-lg font-bold">Usuarios registrados</h2>
+                <span class="rounded-full bg-cyan-500/20 px-3 py-1 text-xs font-semibold text-cyan-700 dark:text-cyan-300">Total: 5</span>
+              </div>
+              <div class="overflow-x-auto">
+                <table class="min-w-full text-sm">
+                  <thead class="text-left text-xs uppercase tracking-wide text-slate-500 dark:text-slate-400">
+                    <tr>
+                      <th scope="col" class="border-b border-slate-200 px-3 py-3 dark:border-slate-700">Nombre</th>
+                      <th scope="col" class="border-b border-slate-200 px-3 py-3 dark:border-slate-700">Email</th>
+                      <th scope="col" class="border-b border-slate-200 px-3 py-3 dark:border-slate-700">Plan</th>
+                      <th scope="col" class="border-b border-slate-200 px-3 py-3 dark:border-slate-700">Estado</th>
+                      <th scope="col" class="border-b border-slate-200 px-3 py-3 text-right dark:border-slate-700">Acciones</th>
+                    </tr>
+                  </thead>
+                  <tbody class="text-slate-800 dark:text-slate-100">
+                    <tr class="even:bg-slate-50/70 dark:even:bg-slate-800/30">
+                      <td class="px-3 py-3">Laura Naranjo</td><td class="px-3 py-3">laura.naranjo@innotech.ai</td><td class="px-3 py-3">Enterprise</td>
+                      <td class="px-3 py-3"><span class="rounded-full bg-emerald-500/20 px-2 py-1 text-xs font-semibold text-emerald-700 dark:text-emerald-300">Activo</span></td>
+                      <td class="px-3 py-3 text-right"><div data-dropdown class="relative inline-block"><button type="button" data-action-toggle aria-label="Acciones de Laura Naranjo" aria-expanded="false" class="h-8 w-8 rounded-lg border border-slate-300 bg-white font-bold hover:bg-slate-100 dark:border-slate-700 dark:bg-slate-900 dark:hover:bg-slate-800">⋮</button><div class="absolute right-0 z-10 mt-2 hidden w-40 rounded-xl border border-slate-200 bg-white p-1 shadow-lg dark:border-slate-700 dark:bg-slate-900" role="menu"><button type="button" data-action="view-user" data-id="u1" class="block w-full rounded-lg px-3 py-2 text-left hover:bg-slate-100 dark:hover:bg-slate-800">Ver detalle</button><button type="button" data-action="delete" data-id="u1" class="block w-full rounded-lg px-3 py-2 text-left hover:bg-slate-100 dark:hover:bg-slate-800">Eliminar</button></div></div></td>
+                    </tr>
+                    <tr class="even:bg-slate-50/70 dark:even:bg-slate-800/30">
+                      <td class="px-3 py-3">Ruben Castro</td><td class="px-3 py-3">ruben.castro@fluxpayments.com</td><td class="px-3 py-3">Profesional</td>
+                      <td class="px-3 py-3"><span class="rounded-full bg-emerald-500/20 px-2 py-1 text-xs font-semibold text-emerald-700 dark:text-emerald-300">Activo</span></td>
+                      <td class="px-3 py-3 text-right"><div data-dropdown class="relative inline-block"><button type="button" data-action-toggle aria-label="Acciones de Ruben Castro" aria-expanded="false" class="h-8 w-8 rounded-lg border border-slate-300 bg-white font-bold hover:bg-slate-100 dark:border-slate-700 dark:bg-slate-900 dark:hover:bg-slate-800">⋮</button><div class="absolute right-0 z-10 mt-2 hidden w-40 rounded-xl border border-slate-200 bg-white p-1 shadow-lg dark:border-slate-700 dark:bg-slate-900" role="menu"><button type="button" data-action="view-user" data-id="u2" class="block w-full rounded-lg px-3 py-2 text-left hover:bg-slate-100 dark:hover:bg-slate-800">Ver detalle</button><button type="button" data-action="delete" data-id="u2" class="block w-full rounded-lg px-3 py-2 text-left hover:bg-slate-100 dark:hover:bg-slate-800">Eliminar</button></div></div></td>
+                    </tr>
+                    <tr class="even:bg-slate-50/70 dark:even:bg-slate-800/30">
+                      <td class="px-3 py-3">Ana Silva</td><td class="px-3 py-3">ana.silva@novatech.io</td><td class="px-3 py-3">Basico</td>
+                      <td class="px-3 py-3"><span class="rounded-full bg-slate-300/50 px-2 py-1 text-xs font-semibold text-slate-700 dark:bg-slate-700 dark:text-slate-200">Suspendido</span></td>
+                      <td class="px-3 py-3 text-right"><div data-dropdown class="relative inline-block"><button type="button" data-action-toggle aria-label="Acciones de Ana Silva" aria-expanded="false" class="h-8 w-8 rounded-lg border border-slate-300 bg-white font-bold hover:bg-slate-100 dark:border-slate-700 dark:bg-slate-900 dark:hover:bg-slate-800">⋮</button><div class="absolute right-0 z-10 mt-2 hidden w-40 rounded-xl border border-slate-200 bg-white p-1 shadow-lg dark:border-slate-700 dark:bg-slate-900" role="menu"><button type="button" data-action="view-user" data-id="u3" class="block w-full rounded-lg px-3 py-2 text-left hover:bg-slate-100 dark:hover:bg-slate-800">Ver detalle</button><button type="button" data-action="delete" data-id="u3" class="block w-full rounded-lg px-3 py-2 text-left hover:bg-slate-100 dark:hover:bg-slate-800">Eliminar</button></div></div></td>
+                    </tr>
+                    <tr class="even:bg-slate-50/70 dark:even:bg-slate-800/30">
+                      <td class="px-3 py-3">Lucia Marquez</td><td class="px-3 py-3">lucia.marquez@atlaslegal.com</td><td class="px-3 py-3">Enterprise</td>
+                      <td class="px-3 py-3"><span class="rounded-full bg-emerald-500/20 px-2 py-1 text-xs font-semibold text-emerald-700 dark:text-emerald-300">Activo</span></td>
+                      <td class="px-3 py-3 text-right"><div data-dropdown class="relative inline-block"><button type="button" data-action-toggle aria-label="Acciones de Lucia Marquez" aria-expanded="false" class="h-8 w-8 rounded-lg border border-slate-300 bg-white font-bold hover:bg-slate-100 dark:border-slate-700 dark:bg-slate-900 dark:hover:bg-slate-800">⋮</button><div class="absolute right-0 z-10 mt-2 hidden w-40 rounded-xl border border-slate-200 bg-white p-1 shadow-lg dark:border-slate-700 dark:bg-slate-900" role="menu"><button type="button" data-action="view-user" data-id="u4" class="block w-full rounded-lg px-3 py-2 text-left hover:bg-slate-100 dark:hover:bg-slate-800">Ver detalle</button><button type="button" data-action="delete" data-id="u4" class="block w-full rounded-lg px-3 py-2 text-left hover:bg-slate-100 dark:hover:bg-slate-800">Eliminar</button></div></div></td>
+                    </tr>
+                    <tr class="even:bg-slate-50/70 dark:even:bg-slate-800/30">
+                      <td class="px-3 py-3">Mateo Rivas</td><td class="px-3 py-3">mateo.rivas@cloudkinetics.net</td><td class="px-3 py-3">Profesional</td>
+                      <td class="px-3 py-3"><span class="rounded-full bg-amber-500/20 px-2 py-1 text-xs font-semibold text-amber-700 dark:text-amber-300">Pendiente</span></td>
+                      <td class="px-3 py-3 text-right"><div data-dropdown class="relative inline-block"><button type="button" data-action-toggle aria-label="Acciones de Mateo Rivas" aria-expanded="false" class="h-8 w-8 rounded-lg border border-slate-300 bg-white font-bold hover:bg-slate-100 dark:border-slate-700 dark:bg-slate-900 dark:hover:bg-slate-800">⋮</button><div class="absolute right-0 z-10 mt-2 hidden w-40 rounded-xl border border-slate-200 bg-white p-1 shadow-lg dark:border-slate-700 dark:bg-slate-900" role="menu"><button type="button" data-action="view-user" data-id="u5" class="block w-full rounded-lg px-3 py-2 text-left hover:bg-slate-100 dark:hover:bg-slate-800">Ver detalle</button><button type="button" data-action="delete" data-id="u5" class="block w-full rounded-lg px-3 py-2 text-left hover:bg-slate-100 dark:hover:bg-slate-800">Eliminar</button></div></div></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </article>
+          </section>
 
-        <section id="errors" class="panel-section hidden space-y-6" data-title="Log de errores">
-          <article class="panel-card">
-            <div class="overflow-x-auto">
-              <table class="data-table">
-                <thead>
-                  <tr>
-                    <th scope="col">Timestamp</th>
-                    <th scope="col">Agente</th>
-                    <th scope="col">Tipo</th>
-                    <th scope="col">Descripcion</th>
-                    <th scope="col" class="text-right">Acciones</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr data-error-row="e1">
-                    <td>2026-07-12 09:10:33</td>
-                    <td>Ops Sentinel</td>
-                    <td><span class="badge badge-danger">API_TIMEOUT</span></td>
-                    <td>Timeout al consultar status endpoint /v2/health.</td>
-                    <td class="text-right">
-                      <div class="dropdown-wrap">
-                        <button class="action-btn" aria-label="Acciones de error e1" aria-expanded="false" aria-controls="menu-error-1">⋮</button>
-                        <div id="menu-error-1" class="action-menu hidden" role="menu">
-                          <button data-action="view-error" data-id="e1">Ver detalle</button>
-                          <button data-action="resolve-error" data-id="e1">Marcar como resuelto</button>
-                        </div>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr data-error-row="e2">
-                    <td>2026-07-12 08:52:20</td>
-                    <td>SaaS Billing Copilot</td>
-                    <td><span class="badge badge-warn">RATE_LIMIT</span></td>
-                    <td>Limite de peticiones alcanzado en proveedor de pagos.</td>
-                    <td class="text-right">
-                      <div class="dropdown-wrap">
-                        <button class="action-btn" aria-label="Acciones de error e2" aria-expanded="false" aria-controls="menu-error-2">⋮</button>
-                        <div id="menu-error-2" class="action-menu hidden" role="menu">
-                          <button data-action="view-error" data-id="e2">Ver detalle</button>
-                          <button data-action="resolve-error" data-id="e2">Marcar como resuelto</button>
-                        </div>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr data-error-row="e3">
-                    <td>2026-07-12 07:41:11</td>
-                    <td>Legal Intake Navigator</td>
-                    <td><span class="badge badge-info">AUTH_FAILURE</span></td>
-                    <td>Token de acceso expirado para repositorio documental.</td>
-                    <td class="text-right">
-                      <div class="dropdown-wrap">
-                        <button class="action-btn" aria-label="Acciones de error e3" aria-expanded="false" aria-controls="menu-error-3">⋮</button>
-                        <div id="menu-error-3" class="action-menu hidden" role="menu">
-                          <button data-action="view-error" data-id="e3">Ver detalle</button>
-                          <button data-action="resolve-error" data-id="e3">Marcar como resuelto</button>
-                        </div>
-                      </div>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </article>
-        </section>
-      </main>
+          <section id="agents" data-panel-section class="hidden space-y-4">
+            <article class="rounded-2xl border border-slate-200 bg-white/90 p-4 shadow-sm dark:border-slate-700 dark:bg-slate-900/85">
+              <div class="space-y-3">
+                <article class="rounded-xl border border-slate-200 dark:border-slate-700">
+                  <div class="flex flex-wrap items-center justify-between gap-2 px-3 py-3">
+                    <div><p class="font-semibold">SaaS Billing Copilot</p><p class="text-xs text-slate-500 dark:text-slate-400">Propietario: Innotech</p></div>
+                    <div class="flex items-center gap-2"><span class="rounded-full bg-emerald-500/20 px-2 py-1 text-xs font-semibold text-emerald-700 dark:text-emerald-300">Activo</span><button type="button" data-collapse-toggle="ag1" aria-expanded="false" class="rounded-lg border border-slate-300 px-2 py-1 text-xs font-semibold hover:bg-slate-100 dark:border-slate-700 dark:hover:bg-slate-800">Ver skills</button><div data-dropdown class="relative inline-block"><button type="button" data-action-toggle aria-label="Acciones de SaaS Billing Copilot" aria-expanded="false" class="h-8 w-8 rounded-lg border border-slate-300 bg-white font-bold hover:bg-slate-100 dark:border-slate-700 dark:bg-slate-900 dark:hover:bg-slate-800">⋮</button><div class="absolute right-0 z-10 mt-2 hidden w-40 rounded-xl border border-slate-200 bg-white p-1 shadow-lg dark:border-slate-700 dark:bg-slate-900" role="menu"><button type="button" data-action="config-agent" data-id="a1" class="block w-full rounded-lg px-3 py-2 text-left hover:bg-slate-100 dark:hover:bg-slate-800">Configurar</button><button type="button" data-action="delete" data-id="a1" class="block w-full rounded-lg px-3 py-2 text-left hover:bg-slate-100 dark:hover:bg-slate-800">Eliminar</button></div></div></div>
+                  </div>
+                  <div id="ag1" class="max-h-0 overflow-hidden opacity-0 transition-all duration-300" aria-hidden="true"><div class="flex flex-wrap gap-2 border-t border-dashed border-slate-300 px-3 py-3 dark:border-slate-700"><span class="rounded-full bg-cyan-500/20 px-2 py-1 text-xs font-semibold text-cyan-700 dark:text-cyan-300">Facturacion API</span><span class="rounded-full bg-cyan-500/20 px-2 py-1 text-xs font-semibold text-cyan-700 dark:text-cyan-300">Conciliacion CSV</span><span class="rounded-full bg-cyan-500/20 px-2 py-1 text-xs font-semibold text-cyan-700 dark:text-cyan-300">Alertas Email</span></div></div>
+                </article>
+
+                <article class="rounded-xl border border-slate-200 dark:border-slate-700">
+                  <div class="flex flex-wrap items-center justify-between gap-2 px-3 py-3">
+                    <div><p class="font-semibold">Legal Intake Navigator</p><p class="text-xs text-slate-500 dark:text-slate-400">Propietario: Atlas Legal</p></div>
+                    <div class="flex items-center gap-2"><span class="rounded-full bg-slate-300/50 px-2 py-1 text-xs font-semibold text-slate-700 dark:bg-slate-700 dark:text-slate-200">Inactivo</span><button type="button" data-collapse-toggle="ag2" aria-expanded="false" class="rounded-lg border border-slate-300 px-2 py-1 text-xs font-semibold hover:bg-slate-100 dark:border-slate-700 dark:hover:bg-slate-800">Ver skills</button><div data-dropdown class="relative inline-block"><button type="button" data-action-toggle aria-label="Acciones de Legal Intake Navigator" aria-expanded="false" class="h-8 w-8 rounded-lg border border-slate-300 bg-white font-bold hover:bg-slate-100 dark:border-slate-700 dark:bg-slate-900 dark:hover:bg-slate-800">⋮</button><div class="absolute right-0 z-10 mt-2 hidden w-40 rounded-xl border border-slate-200 bg-white p-1 shadow-lg dark:border-slate-700 dark:bg-slate-900" role="menu"><button type="button" data-action="config-agent" data-id="a2" class="block w-full rounded-lg px-3 py-2 text-left hover:bg-slate-100 dark:hover:bg-slate-800">Configurar</button><button type="button" data-action="delete" data-id="a2" class="block w-full rounded-lg px-3 py-2 text-left hover:bg-slate-100 dark:hover:bg-slate-800">Eliminar</button></div></div></div>
+                  </div>
+                  <div id="ag2" class="max-h-0 overflow-hidden opacity-0 transition-all duration-300" aria-hidden="true"><div class="flex flex-wrap gap-2 border-t border-dashed border-slate-300 px-3 py-3 dark:border-slate-700"><span class="rounded-full bg-cyan-500/20 px-2 py-1 text-xs font-semibold text-cyan-700 dark:text-cyan-300">OCR documentos</span><span class="rounded-full bg-cyan-500/20 px-2 py-1 text-xs font-semibold text-cyan-700 dark:text-cyan-300">Clasificacion legal</span></div></div>
+                </article>
+
+                <article class="rounded-xl border border-slate-200 dark:border-slate-700">
+                  <div class="flex flex-wrap items-center justify-between gap-2 px-3 py-3">
+                    <div><p class="font-semibold">Ops Sentinel</p><p class="text-xs text-slate-500 dark:text-slate-400">Propietario: FluxPayments</p></div>
+                    <div class="flex items-center gap-2"><span class="rounded-full bg-rose-500/20 px-2 py-1 text-xs font-semibold text-rose-700 dark:text-rose-300">Fallando</span><button type="button" data-collapse-toggle="ag3" aria-expanded="false" class="rounded-lg border border-slate-300 px-2 py-1 text-xs font-semibold hover:bg-slate-100 dark:border-slate-700 dark:hover:bg-slate-800">Ver skills</button><div data-dropdown class="relative inline-block"><button type="button" data-action-toggle aria-label="Acciones de Ops Sentinel" aria-expanded="false" class="h-8 w-8 rounded-lg border border-slate-300 bg-white font-bold hover:bg-slate-100 dark:border-slate-700 dark:bg-slate-900 dark:hover:bg-slate-800">⋮</button><div class="absolute right-0 z-10 mt-2 hidden w-40 rounded-xl border border-slate-200 bg-white p-1 shadow-lg dark:border-slate-700 dark:bg-slate-900" role="menu"><button type="button" data-action="config-agent" data-id="a3" class="block w-full rounded-lg px-3 py-2 text-left hover:bg-slate-100 dark:hover:bg-slate-800">Configurar</button><button type="button" data-action="delete" data-id="a3" class="block w-full rounded-lg px-3 py-2 text-left hover:bg-slate-100 dark:hover:bg-slate-800">Eliminar</button></div></div></div>
+                  </div>
+                  <div id="ag3" class="max-h-0 overflow-hidden opacity-0 transition-all duration-300" aria-hidden="true"><div class="flex flex-wrap gap-2 border-t border-dashed border-slate-300 px-3 py-3 dark:border-slate-700"><span class="rounded-full bg-cyan-500/20 px-2 py-1 text-xs font-semibold text-cyan-700 dark:text-cyan-300">Monitoreo API</span><span class="rounded-full bg-cyan-500/20 px-2 py-1 text-xs font-semibold text-cyan-700 dark:text-cyan-300">Pager escalation</span><span class="rounded-full bg-cyan-500/20 px-2 py-1 text-xs font-semibold text-cyan-700 dark:text-cyan-300">SLA scoring</span></div></div>
+                </article>
+
+                <article class="rounded-xl border border-slate-200 dark:border-slate-700">
+                  <div class="flex flex-wrap items-center justify-between gap-2 px-3 py-3">
+                    <div><p class="font-semibold">Calendar Ops Coordinator</p><p class="text-xs text-slate-500 dark:text-slate-400">Propietario: CloudKinetics</p></div>
+                    <div class="flex items-center gap-2"><span class="rounded-full bg-emerald-500/20 px-2 py-1 text-xs font-semibold text-emerald-700 dark:text-emerald-300">Activo</span><button type="button" data-collapse-toggle="ag4" aria-expanded="false" class="rounded-lg border border-slate-300 px-2 py-1 text-xs font-semibold hover:bg-slate-100 dark:border-slate-700 dark:hover:bg-slate-800">Ver skills</button><div data-dropdown class="relative inline-block"><button type="button" data-action-toggle aria-label="Acciones de Calendar Ops Coordinator" aria-expanded="false" class="h-8 w-8 rounded-lg border border-slate-300 bg-white font-bold hover:bg-slate-100 dark:border-slate-700 dark:bg-slate-900 dark:hover:bg-slate-800">⋮</button><div class="absolute right-0 z-10 mt-2 hidden w-40 rounded-xl border border-slate-200 bg-white p-1 shadow-lg dark:border-slate-700 dark:bg-slate-900" role="menu"><button type="button" data-action="config-agent" data-id="a4" class="block w-full rounded-lg px-3 py-2 text-left hover:bg-slate-100 dark:hover:bg-slate-800">Configurar</button><button type="button" data-action="delete" data-id="a4" class="block w-full rounded-lg px-3 py-2 text-left hover:bg-slate-100 dark:hover:bg-slate-800">Eliminar</button></div></div></div>
+                  </div>
+                  <div id="ag4" class="max-h-0 overflow-hidden opacity-0 transition-all duration-300" aria-hidden="true"><div class="flex flex-wrap gap-2 border-t border-dashed border-slate-300 px-3 py-3 dark:border-slate-700"><span class="rounded-full bg-cyan-500/20 px-2 py-1 text-xs font-semibold text-cyan-700 dark:text-cyan-300">Calendar sync</span><span class="rounded-full bg-cyan-500/20 px-2 py-1 text-xs font-semibold text-cyan-700 dark:text-cyan-300">Meeting routing</span><span class="rounded-full bg-cyan-500/20 px-2 py-1 text-xs font-semibold text-cyan-700 dark:text-cyan-300">Reminder bot</span></div></div>
+                </article>
+              </div>
+            </article>
+          </section>
+
+          <section id="skills" data-panel-section class="hidden space-y-4">
+            <article class="rounded-2xl border border-cyan-200 bg-cyan-50 p-4 text-cyan-900 dark:border-cyan-900/60 dark:bg-cyan-950/40 dark:text-cyan-200">
+              <h2 class="text-lg font-bold">Que es una skill en AgentHub</h2>
+              <p class="mt-2 text-sm">Una skill es una capacidad modular reusable que habilita acciones concretas en los agentes, como leer documentos, navegar por la web o orquestar calendarios.</p>
+            </article>
+            <article class="rounded-2xl border border-slate-200 bg-white/90 p-4 shadow-sm dark:border-slate-700 dark:bg-slate-900/85">
+              <div class="overflow-x-auto">
+                <table class="min-w-full text-sm">
+                  <thead class="text-left text-xs uppercase tracking-wide text-slate-500 dark:text-slate-400"><tr><th scope="col" class="border-b border-slate-200 px-3 py-3 dark:border-slate-700">Nombre</th><th scope="col" class="border-b border-slate-200 px-3 py-3 dark:border-slate-700">Descripcion</th><th scope="col" class="border-b border-slate-200 px-3 py-3 dark:border-slate-700">Agentes habilitados</th><th scope="col" class="border-b border-slate-200 px-3 py-3 text-right dark:border-slate-700">Acciones</th></tr></thead>
+                  <tbody>
+                    <tr class="even:bg-slate-50/70 dark:even:bg-slate-800/30"><td class="px-3 py-3">Web Navigator</td><td class="px-3 py-3">Navega sitios autorizados y resume hallazgos.</td><td class="px-3 py-3"><span class="rounded-full bg-cyan-500/20 px-2 py-1 text-xs font-semibold text-cyan-700 dark:text-cyan-300">24 agentes</span></td><td class="px-3 py-3 text-right"><div data-dropdown class="relative inline-block"><button type="button" data-action-toggle aria-label="Acciones de skill Web Navigator" aria-expanded="false" class="h-8 w-8 rounded-lg border border-slate-300 bg-white font-bold hover:bg-slate-100 dark:border-slate-700 dark:bg-slate-900 dark:hover:bg-slate-800">⋮</button><div class="absolute right-0 z-10 mt-2 hidden w-40 rounded-xl border border-slate-200 bg-white p-1 shadow-lg dark:border-slate-700 dark:bg-slate-900" role="menu"><button type="button" data-action="view-skill" data-id="s1" class="block w-full rounded-lg px-3 py-2 text-left hover:bg-slate-100 dark:hover:bg-slate-800">Ver detalle</button><button type="button" data-action="delete" data-id="s1" class="block w-full rounded-lg px-3 py-2 text-left hover:bg-slate-100 dark:hover:bg-slate-800">Eliminar</button></div></div></td></tr>
+                    <tr class="even:bg-slate-50/70 dark:even:bg-slate-800/30"><td class="px-3 py-3">Doc Reader</td><td class="px-3 py-3">Procesa PDF, DOCX y XLSX con OCR.</td><td class="px-3 py-3"><span class="rounded-full bg-cyan-500/20 px-2 py-1 text-xs font-semibold text-cyan-700 dark:text-cyan-300">19 agentes</span></td><td class="px-3 py-3 text-right"><div data-dropdown class="relative inline-block"><button type="button" data-action-toggle aria-label="Acciones de skill Doc Reader" aria-expanded="false" class="h-8 w-8 rounded-lg border border-slate-300 bg-white font-bold hover:bg-slate-100 dark:border-slate-700 dark:bg-slate-900 dark:hover:bg-slate-800">⋮</button><div class="absolute right-0 z-10 mt-2 hidden w-40 rounded-xl border border-slate-200 bg-white p-1 shadow-lg dark:border-slate-700 dark:bg-slate-900" role="menu"><button type="button" data-action="view-skill" data-id="s2" class="block w-full rounded-lg px-3 py-2 text-left hover:bg-slate-100 dark:hover:bg-slate-800">Ver detalle</button><button type="button" data-action="delete" data-id="s2" class="block w-full rounded-lg px-3 py-2 text-left hover:bg-slate-100 dark:hover:bg-slate-800">Eliminar</button></div></div></td></tr>
+                    <tr class="even:bg-slate-50/70 dark:even:bg-slate-800/30"><td class="px-3 py-3">Calendar Orchestrator</td><td class="px-3 py-3">Sincroniza agendas y propone horarios.</td><td class="px-3 py-3"><span class="rounded-full bg-cyan-500/20 px-2 py-1 text-xs font-semibold text-cyan-700 dark:text-cyan-300">31 agentes</span></td><td class="px-3 py-3 text-right"><div data-dropdown class="relative inline-block"><button type="button" data-action-toggle aria-label="Acciones de skill Calendar Orchestrator" aria-expanded="false" class="h-8 w-8 rounded-lg border border-slate-300 bg-white font-bold hover:bg-slate-100 dark:border-slate-700 dark:bg-slate-900 dark:hover:bg-slate-800">⋮</button><div class="absolute right-0 z-10 mt-2 hidden w-40 rounded-xl border border-slate-200 bg-white p-1 shadow-lg dark:border-slate-700 dark:bg-slate-900" role="menu"><button type="button" data-action="view-skill" data-id="s3" class="block w-full rounded-lg px-3 py-2 text-left hover:bg-slate-100 dark:hover:bg-slate-800">Ver detalle</button><button type="button" data-action="delete" data-id="s3" class="block w-full rounded-lg px-3 py-2 text-left hover:bg-slate-100 dark:hover:bg-slate-800">Eliminar</button></div></div></td></tr>
+                    <tr class="even:bg-slate-50/70 dark:even:bg-slate-800/30"><td class="px-3 py-3">Knowledge Retriever</td><td class="px-3 py-3">Consulta base documental interna por contexto.</td><td class="px-3 py-3"><span class="rounded-full bg-cyan-500/20 px-2 py-1 text-xs font-semibold text-cyan-700 dark:text-cyan-300">27 agentes</span></td><td class="px-3 py-3 text-right"><div data-dropdown class="relative inline-block"><button type="button" data-action-toggle aria-label="Acciones de skill Knowledge Retriever" aria-expanded="false" class="h-8 w-8 rounded-lg border border-slate-300 bg-white font-bold hover:bg-slate-100 dark:border-slate-700 dark:bg-slate-900 dark:hover:bg-slate-800">⋮</button><div class="absolute right-0 z-10 mt-2 hidden w-40 rounded-xl border border-slate-200 bg-white p-1 shadow-lg dark:border-slate-700 dark:bg-slate-900" role="menu"><button type="button" data-action="view-skill" data-id="s4" class="block w-full rounded-lg px-3 py-2 text-left hover:bg-slate-100 dark:hover:bg-slate-800">Ver detalle</button><button type="button" data-action="delete" data-id="s4" class="block w-full rounded-lg px-3 py-2 text-left hover:bg-slate-100 dark:hover:bg-slate-800">Eliminar</button></div></div></td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </article>
+          </section>
+
+          <section id="contracts" data-panel-section class="hidden space-y-4">
+            <article class="rounded-2xl border border-slate-200 bg-white/90 p-4 shadow-sm dark:border-slate-700 dark:bg-slate-900/85">
+              <div class="overflow-x-auto">
+                <table class="min-w-full text-sm">
+                  <thead class="text-left text-xs uppercase tracking-wide text-slate-500 dark:text-slate-400"><tr><th scope="col" class="border-b border-slate-200 px-3 py-3 dark:border-slate-700">Cliente</th><th scope="col" class="border-b border-slate-200 px-3 py-3 dark:border-slate-700">Agente</th><th scope="col" class="border-b border-slate-200 px-3 py-3 dark:border-slate-700">Skills contratadas</th><th scope="col" class="border-b border-slate-200 px-3 py-3 dark:border-slate-700">Inicio / Fin</th><th scope="col" class="border-b border-slate-200 px-3 py-3 dark:border-slate-700">Importe pagado</th><th scope="col" class="border-b border-slate-200 px-3 py-3 text-right dark:border-slate-700">Acciones</th></tr></thead>
+                  <tbody>
+                    <tr class="even:bg-slate-50/70 dark:even:bg-slate-800/30"><td class="px-3 py-3">Innotech</td><td class="px-3 py-3">SaaS Billing Copilot</td><td class="px-3 py-3">Facturacion API, Alertas Email</td><td class="px-3 py-3">01/05/2026 - 01/08/2026</td><td class="px-3 py-3">$4,200</td><td class="px-3 py-3 text-right"><div data-dropdown class="relative inline-block"><button type="button" data-action-toggle aria-label="Acciones contrato Innotech" aria-expanded="false" class="h-8 w-8 rounded-lg border border-slate-300 bg-white font-bold hover:bg-slate-100 dark:border-slate-700 dark:bg-slate-900 dark:hover:bg-slate-800">⋮</button><div class="absolute right-0 z-10 mt-2 hidden w-40 rounded-xl border border-slate-200 bg-white p-1 shadow-lg dark:border-slate-700 dark:bg-slate-900" role="menu"><button type="button" data-action="view-contract" data-id="c1" class="block w-full rounded-lg px-3 py-2 text-left hover:bg-slate-100 dark:hover:bg-slate-800">Ver detalle</button></div></div></td></tr>
+                    <tr class="even:bg-slate-50/70 dark:even:bg-slate-800/30"><td class="px-3 py-3">Atlas Legal</td><td class="px-3 py-3">Legal Intake Navigator</td><td class="px-3 py-3">OCR documentos, Clasificacion legal</td><td class="px-3 py-3">14/03/2026 - 14/06/2026</td><td class="px-3 py-3">$2,860</td><td class="px-3 py-3 text-right"><div data-dropdown class="relative inline-block"><button type="button" data-action-toggle aria-label="Acciones contrato Atlas Legal" aria-expanded="false" class="h-8 w-8 rounded-lg border border-slate-300 bg-white font-bold hover:bg-slate-100 dark:border-slate-700 dark:bg-slate-900 dark:hover:bg-slate-800">⋮</button><div class="absolute right-0 z-10 mt-2 hidden w-40 rounded-xl border border-slate-200 bg-white p-1 shadow-lg dark:border-slate-700 dark:bg-slate-900" role="menu"><button type="button" data-action="view-contract" data-id="c2" class="block w-full rounded-lg px-3 py-2 text-left hover:bg-slate-100 dark:hover:bg-slate-800">Ver detalle</button></div></div></td></tr>
+                    <tr class="even:bg-slate-50/70 dark:even:bg-slate-800/30"><td class="px-3 py-3">FluxPayments</td><td class="px-3 py-3">Ops Sentinel</td><td class="px-3 py-3">Monitoreo API, SLA scoring</td><td class="px-3 py-3">01/01/2026 - 01/01/2027</td><td class="px-3 py-3">$8,910</td><td class="px-3 py-3 text-right"><div data-dropdown class="relative inline-block"><button type="button" data-action-toggle aria-label="Acciones contrato FluxPayments" aria-expanded="false" class="h-8 w-8 rounded-lg border border-slate-300 bg-white font-bold hover:bg-slate-100 dark:border-slate-700 dark:bg-slate-900 dark:hover:bg-slate-800">⋮</button><div class="absolute right-0 z-10 mt-2 hidden w-40 rounded-xl border border-slate-200 bg-white p-1 shadow-lg dark:border-slate-700 dark:bg-slate-900" role="menu"><button type="button" data-action="view-contract" data-id="c3" class="block w-full rounded-lg px-3 py-2 text-left hover:bg-slate-100 dark:hover:bg-slate-800">Ver detalle</button></div></div></td></tr>
+                    <tr class="even:bg-slate-50/70 dark:even:bg-slate-800/30"><td class="px-3 py-3">CloudKinetics</td><td class="px-3 py-3">Calendar Ops Coordinator</td><td class="px-3 py-3">Calendar sync, Reminder bot</td><td class="px-3 py-3">10/04/2026 - 10/10/2026</td><td class="px-3 py-3">$3,440</td><td class="px-3 py-3 text-right"><div data-dropdown class="relative inline-block"><button type="button" data-action-toggle aria-label="Acciones contrato CloudKinetics" aria-expanded="false" class="h-8 w-8 rounded-lg border border-slate-300 bg-white font-bold hover:bg-slate-100 dark:border-slate-700 dark:bg-slate-900 dark:hover:bg-slate-800">⋮</button><div class="absolute right-0 z-10 mt-2 hidden w-40 rounded-xl border border-slate-200 bg-white p-1 shadow-lg dark:border-slate-700 dark:bg-slate-900" role="menu"><button type="button" data-action="view-contract" data-id="c4" class="block w-full rounded-lg px-3 py-2 text-left hover:bg-slate-100 dark:hover:bg-slate-800">Ver detalle</button></div></div></td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </article>
+          </section>
+
+          <section id="errors" data-panel-section class="hidden space-y-4">
+            <article class="rounded-2xl border border-slate-200 bg-white/90 p-4 shadow-sm dark:border-slate-700 dark:bg-slate-900/85">
+              <div class="overflow-x-auto">
+                <table class="min-w-full text-sm">
+                  <thead class="text-left text-xs uppercase tracking-wide text-slate-500 dark:text-slate-400"><tr><th scope="col" class="border-b border-slate-200 px-3 py-3 dark:border-slate-700">Timestamp</th><th scope="col" class="border-b border-slate-200 px-3 py-3 dark:border-slate-700">Agente</th><th scope="col" class="border-b border-slate-200 px-3 py-3 dark:border-slate-700">Tipo</th><th scope="col" class="border-b border-slate-200 px-3 py-3 dark:border-slate-700">Descripcion</th><th scope="col" class="border-b border-slate-200 px-3 py-3 text-right dark:border-slate-700">Acciones</th></tr></thead>
+                  <tbody>
+                    <tr data-error-row="e1" class="even:bg-slate-50/70 dark:even:bg-slate-800/30"><td class="px-3 py-3">2026-07-12 09:10:33</td><td class="px-3 py-3">Ops Sentinel</td><td class="px-3 py-3"><span class="rounded-full bg-rose-500/20 px-2 py-1 text-xs font-semibold text-rose-700 dark:text-rose-300">API_TIMEOUT</span></td><td class="px-3 py-3">Timeout al consultar endpoint /v2/health.</td><td class="px-3 py-3 text-right"><div data-dropdown class="relative inline-block"><button type="button" data-action-toggle aria-label="Acciones error e1" aria-expanded="false" class="h-8 w-8 rounded-lg border border-slate-300 bg-white font-bold hover:bg-slate-100 dark:border-slate-700 dark:bg-slate-900 dark:hover:bg-slate-800">⋮</button><div class="absolute right-0 z-10 mt-2 hidden w-44 rounded-xl border border-slate-200 bg-white p-1 shadow-lg dark:border-slate-700 dark:bg-slate-900" role="menu"><button type="button" data-action="view-error" data-id="e1" class="block w-full rounded-lg px-3 py-2 text-left hover:bg-slate-100 dark:hover:bg-slate-800">Ver detalle</button><button type="button" data-action="resolve-error" data-id="e1" class="block w-full rounded-lg px-3 py-2 text-left hover:bg-slate-100 dark:hover:bg-slate-800">Marcar como resuelto</button></div></div></td></tr>
+                    <tr data-error-row="e2" class="even:bg-slate-50/70 dark:even:bg-slate-800/30"><td class="px-3 py-3">2026-07-12 08:52:20</td><td class="px-3 py-3">SaaS Billing Copilot</td><td class="px-3 py-3"><span class="rounded-full bg-amber-500/20 px-2 py-1 text-xs font-semibold text-amber-700 dark:text-amber-300">RATE_LIMIT</span></td><td class="px-3 py-3">Limite de peticiones alcanzado en pasarela.</td><td class="px-3 py-3 text-right"><div data-dropdown class="relative inline-block"><button type="button" data-action-toggle aria-label="Acciones error e2" aria-expanded="false" class="h-8 w-8 rounded-lg border border-slate-300 bg-white font-bold hover:bg-slate-100 dark:border-slate-700 dark:bg-slate-900 dark:hover:bg-slate-800">⋮</button><div class="absolute right-0 z-10 mt-2 hidden w-44 rounded-xl border border-slate-200 bg-white p-1 shadow-lg dark:border-slate-700 dark:bg-slate-900" role="menu"><button type="button" data-action="view-error" data-id="e2" class="block w-full rounded-lg px-3 py-2 text-left hover:bg-slate-100 dark:hover:bg-slate-800">Ver detalle</button><button type="button" data-action="resolve-error" data-id="e2" class="block w-full rounded-lg px-3 py-2 text-left hover:bg-slate-100 dark:hover:bg-slate-800">Marcar como resuelto</button></div></div></td></tr>
+                    <tr data-error-row="e3" class="even:bg-slate-50/70 dark:even:bg-slate-800/30"><td class="px-3 py-3">2026-07-12 07:41:11</td><td class="px-3 py-3">Legal Intake Navigator</td><td class="px-3 py-3"><span class="rounded-full bg-slate-400/30 px-2 py-1 text-xs font-semibold text-slate-700 dark:text-slate-300">AUTH_FAILURE</span></td><td class="px-3 py-3">Token expirado para repositorio legal.</td><td class="px-3 py-3 text-right"><div data-dropdown class="relative inline-block"><button type="button" data-action-toggle aria-label="Acciones error e3" aria-expanded="false" class="h-8 w-8 rounded-lg border border-slate-300 bg-white font-bold hover:bg-slate-100 dark:border-slate-700 dark:bg-slate-900 dark:hover:bg-slate-800">⋮</button><div class="absolute right-0 z-10 mt-2 hidden w-44 rounded-xl border border-slate-200 bg-white p-1 shadow-lg dark:border-slate-700 dark:bg-slate-900" role="menu"><button type="button" data-action="view-error" data-id="e3" class="block w-full rounded-lg px-3 py-2 text-left hover:bg-slate-100 dark:hover:bg-slate-800">Ver detalle</button><button type="button" data-action="resolve-error" data-id="e3" class="block w-full rounded-lg px-3 py-2 text-left hover:bg-slate-100 dark:hover:bg-slate-800">Marcar como resuelto</button></div></div></td></tr>
+                    <tr data-error-row="e4" class="even:bg-slate-50/70 dark:even:bg-slate-800/30"><td class="px-3 py-3">2026-07-12 07:10:02</td><td class="px-3 py-3">Calendar Ops Coordinator</td><td class="px-3 py-3"><span class="rounded-full bg-amber-500/20 px-2 py-1 text-xs font-semibold text-amber-700 dark:text-amber-300">SYNC_DELAY</span></td><td class="px-3 py-3">Desfase de sincronizacion de eventos.</td><td class="px-3 py-3 text-right"><div data-dropdown class="relative inline-block"><button type="button" data-action-toggle aria-label="Acciones error e4" aria-expanded="false" class="h-8 w-8 rounded-lg border border-slate-300 bg-white font-bold hover:bg-slate-100 dark:border-slate-700 dark:bg-slate-900 dark:hover:bg-slate-800">⋮</button><div class="absolute right-0 z-10 mt-2 hidden w-44 rounded-xl border border-slate-200 bg-white p-1 shadow-lg dark:border-slate-700 dark:bg-slate-900" role="menu"><button type="button" data-action="view-error" data-id="e4" class="block w-full rounded-lg px-3 py-2 text-left hover:bg-slate-100 dark:hover:bg-slate-800">Ver detalle</button><button type="button" data-action="resolve-error" data-id="e4" class="block w-full rounded-lg px-3 py-2 text-left hover:bg-slate-100 dark:hover:bg-slate-800">Marcar como resuelto</button></div></div></td></tr>
+                    <tr data-error-row="e5" class="even:bg-slate-50/70 dark:even:bg-slate-800/30"><td class="px-3 py-3">2026-07-12 06:55:44</td><td class="px-3 py-3">Ops Sentinel</td><td class="px-3 py-3"><span class="rounded-full bg-rose-500/20 px-2 py-1 text-xs font-semibold text-rose-700 dark:text-rose-300">WEBHOOK_FAIL</span></td><td class="px-3 py-3">Fallo envio de webhook a canal de alertas.</td><td class="px-3 py-3 text-right"><div data-dropdown class="relative inline-block"><button type="button" data-action-toggle aria-label="Acciones error e5" aria-expanded="false" class="h-8 w-8 rounded-lg border border-slate-300 bg-white font-bold hover:bg-slate-100 dark:border-slate-700 dark:bg-slate-900 dark:hover:bg-slate-800">⋮</button><div class="absolute right-0 z-10 mt-2 hidden w-44 rounded-xl border border-slate-200 bg-white p-1 shadow-lg dark:border-slate-700 dark:bg-slate-900" role="menu"><button type="button" data-action="view-error" data-id="e5" class="block w-full rounded-lg px-3 py-2 text-left hover:bg-slate-100 dark:hover:bg-slate-800">Ver detalle</button><button type="button" data-action="resolve-error" data-id="e5" class="block w-full rounded-lg px-3 py-2 text-left hover:bg-slate-100 dark:hover:bg-slate-800">Marcar como resuelto</button></div></div></td></tr>
+                    <tr data-error-row="e6" class="even:bg-slate-50/70 dark:even:bg-slate-800/30"><td class="px-3 py-3">2026-07-12 06:30:15</td><td class="px-3 py-3">SaaS Billing Copilot</td><td class="px-3 py-3"><span class="rounded-full bg-slate-400/30 px-2 py-1 text-xs font-semibold text-slate-700 dark:text-slate-300">PARSER_WARNING</span></td><td class="px-3 py-3">Formato CSV no estandar en lote 182.</td><td class="px-3 py-3 text-right"><div data-dropdown class="relative inline-block"><button type="button" data-action-toggle aria-label="Acciones error e6" aria-expanded="false" class="h-8 w-8 rounded-lg border border-slate-300 bg-white font-bold hover:bg-slate-100 dark:border-slate-700 dark:bg-slate-900 dark:hover:bg-slate-800">⋮</button><div class="absolute right-0 z-10 mt-2 hidden w-44 rounded-xl border border-slate-200 bg-white p-1 shadow-lg dark:border-slate-700 dark:bg-slate-900" role="menu"><button type="button" data-action="view-error" data-id="e6" class="block w-full rounded-lg px-3 py-2 text-left hover:bg-slate-100 dark:hover:bg-slate-800">Ver detalle</button><button type="button" data-action="resolve-error" data-id="e6" class="block w-full rounded-lg px-3 py-2 text-left hover:bg-slate-100 dark:hover:bg-slate-800">Marcar como resuelto</button></div></div></td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </article>
+          </section>
+        </main>
+      </div>
     </div>
 
-    <div id="modalRoot" class="fixed inset-0 z-50 hidden" aria-hidden="true">
-      <div id="modalBackdrop" class="absolute inset-0 bg-slate-950/70 backdrop-blur-sm"></div>
+    <div id="modal-root" class="fixed inset-0 z-50 hidden" aria-hidden="true">
+      <div id="modal-backdrop" class="absolute inset-0 bg-slate-950/70 backdrop-blur-sm"></div>
       <div class="relative flex min-h-full items-center justify-center p-4">
-        <article
-          id="modalPanel"
-          class="w-full max-w-2xl rounded-2xl border border-slate-200 bg-white p-5 shadow-2xl dark:border-slate-700 dark:bg-slate-900"
-          role="dialog"
-          aria-modal="true"
-          aria-labelledby="modalTitle"
-        >
+        <article id="modal-panel" role="dialog" aria-modal="true" aria-labelledby="modal-title" class="w-full max-w-2xl rounded-2xl border border-slate-200 bg-white p-5 shadow-2xl dark:border-slate-700 dark:bg-slate-900">
           <header class="mb-4 flex items-start justify-between gap-3">
-            <h2 id="modalTitle" class="font-display text-xl font-bold text-slate-900 dark:text-white"></h2>
-            <button id="modalCloseTop" class="action-btn" type="button" aria-label="Cerrar modal">✕</button>
+            <h2 id="modal-title" class="text-xl font-bold"></h2>
+            <button id="modal-close-top" type="button" class="h-8 w-8 rounded-lg border border-slate-300 bg-white font-bold hover:bg-slate-100 dark:border-slate-700 dark:bg-slate-900 dark:hover:bg-slate-800" aria-label="Cerrar modal">✕</button>
           </header>
-          <div id="modalBody" class="space-y-3 text-sm text-slate-700 dark:text-slate-200"></div>
+          <div id="modal-body" class="space-y-3 text-sm"></div>
           <footer class="mt-5 flex justify-end">
-            <button
-              id="modalCloseBottom"
-              class="rounded-lg border border-slate-300 px-4 py-2 text-sm font-semibold text-slate-700 transition hover:bg-slate-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-500 dark:border-slate-700 dark:text-slate-200 dark:hover:bg-slate-800"
-              type="button"
-            >
-              Cerrar
-            </button>
+            <button id="modal-close-bottom" type="button" class="rounded-lg border border-slate-300 px-4 py-2 text-sm font-semibold hover:bg-slate-100 dark:border-slate-700 dark:hover:bg-slate-800">Cerrar</button>
           </footer>
         </article>
       </div>
